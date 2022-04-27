@@ -30,6 +30,7 @@ router.get('/viewsingleuser/:id',controller.viewsingleuser)
 
 //create user requiremnts
 router.post('/setuserrequirements',controller.setuserrequirements)
-router.post('/getuserrequirements',controller.getuserrequirements)
+// router.post('/getuserrequirements',controller.getuserrequirements)
+
 
 module.exports= router

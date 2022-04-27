@@ -3,7 +3,7 @@ const PaymentPlanData = require('../model/paymentplan')
 const AdonServiceData = require('../model/adonservices')
 const userData = require('../model/user')
 const Logindata = require('../model/login')
-const Requiremnts=require('../model/requirements')
+const Requiremnts = require('../model/requirements')
 
 //create plan
 const createPlan = (req, res) => {
@@ -138,17 +138,32 @@ const viewuser = (req, res) => {
 
 //view user by id
 const viewsingleuser = (req, res) => {
+
     const id = req.params.id;
-    userData.find({ login_id: id }).then((respons) => {
-        Logindata.find({ _id: id }).then((response) => {
-            const data = { userdetails: respons, logindetails: response }
-            console.log(response);
-            res.status(200).json({ msg: "success", details: data })
-        })
-    }).catch((err) => {
-        console.error(err);
-        res.json({ msg: `error : ${err}`, })
+    userData.aggregate([
+        { $match: { login_id: id } },
+        {
+            $lookup:
+            {
+                from: 'login_tbs',
+                localField: 'login_id',
+                foreignField: '_id',
+                as: 'userlogindetails'
+            }
+        }
+    ]).then((response) => {
+        res.status(200).json({ msg: "success", details: response })
     })
+    // userData.find({ login_id: id }).then((respons) => {
+    //     Logindata.find({ _id: id }).then((response) => {
+    //         const data = { userdetails: respons, logindetails: response }
+    //         console.log(response);
+    //         res.status(200).json({ msg: "success", details: data })
+    //     })
+    // }).catch((err) => {
+    //     console.error(err);
+    //     res.json({ msg: `error : ${err}`, })
+    // })
 }
 
 //update user
@@ -166,7 +181,7 @@ const updateuser = (req, res) => {
 }
 
 //setuserrequirements 
-const setuserrequirements=(req, res)=>{
+const setuserrequirements = (req, res) => {
     console.log(req.body)
     const userRequiremnts = Requiremnts(req.body)
     userRequiremnts.save().then((response) => {
@@ -222,5 +237,5 @@ module.exports = {
     viewsingleuser,
     updateuser,
     setuserrequirements,
-    getuserrequirements
+    // getuserrequirements
 }

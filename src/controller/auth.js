@@ -21,7 +21,7 @@ const login = (req, res) => {
     const phone = req.body.phone;
     var details=[];
     const otp = Math.floor(100000 + Math.random() * 900000);
-    const ttl = 2 * 60 * 1000;
+    const ttl = 2 * 60 * 1000; //2minutes
     const expires = Date.now() + ttl;
     const data = `${phone}.${otp}.${expires}`;
     const hash = crypto.createHmac('sha256', smsKey).update(data).digest('hex');
@@ -78,7 +78,7 @@ const verifyOTP = (req, res) => {
                 httpOnly: true
             })
             .cookie('refreshToken', refreshToken, {
-                expires: new Date(new Date().getTime() + 31557600000),
+                expires: new Date(new Date().getTime() + 31557600000), //1 year
                 sameSite: 'strict',
                 httpOnly: true
             })

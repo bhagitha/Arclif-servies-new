@@ -11,7 +11,7 @@
     height: 100vh;
     width: 100%;
     /* background-image: url('../../img/abstract-geometric-banner-free-vector.jpg'); */
-    background-image: linear-gradient(135deg, #1e88e5, #0d47a1);
+    background-image: linear-gradient(135deg, #ffffff, #0a0b0e);
     display: grid;
     place-items: center;
 }
