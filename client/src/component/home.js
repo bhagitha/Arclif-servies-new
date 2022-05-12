@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styles from './styles/home.module.css';
+import Requirements from './requirements'
+import Sidebar from './sidebar'
+import {Link} from 'react-router-dom'
+import Userdashboard from './view/UserDashboard'
 
 axios.defaults.withCredentials = true;
 function Home() {
-	const [ state, setState ] = useState({
+	const [state, setState] = useState({
 		value: 'Private Protected Route - Home'
 	});
 
@@ -41,15 +45,23 @@ function Home() {
 	return (
 		<div className={styles}>
 			<div className={styles.top}>
-				<p>Mobile OTP testCase</p>
+				<p>ADMIN</p>
+				{/* <button onClick={logout} className={styles.logout}>
+					Log out
+				</button> */}
 			</div>
 			<div className={styles.bottom}>
-				<button onClick={logout} className={styles.logout}>
-					Log out
-				</button>
+			
+				<div style={{width: '180px'}} >
 
-				<div className={styles.card} />
-				<div className={styles.words}> {state.value}</div>
+				<Sidebar></Sidebar>
+				
+				</div>	
+				{/* <Userdashboard/> */}
+				{/* <Link to='/userdashboard'> User Dashboard</Link> */}
+				{/* <Requirements/> */}
+				{/* <div className={styles.card} />
+				<div className={styles.words}> {state.value}</div> */}
 			</div>
 		</div>
 	);
