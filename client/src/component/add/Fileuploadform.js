@@ -116,7 +116,7 @@ const Fileuploadform = (props) => {
     {({ getRootProps, getInputProps }) => (
       <div {...getRootProps({ className: 'drop-zone' })} ref={dropRef}>
         <input {...getInputProps()} />
-        <p>Drag and drop a file OR click here to select a file</p>
+        <p >Drag and drop a file OR click here to select a file</p>
         {file && (
           <div>
             <strong>Selected file:</strong> {file.name}

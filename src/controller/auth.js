@@ -169,7 +169,7 @@ async function authenticateUser(req, res, next) {
 //<!==================Refresh ===========================/>//
 const refresh = (req, res) => {
     try {
-        console.log('inside refresh ..')
+        // console.log('inside refresh ..')
         const refreshToken = req.cookies.refreshToken;
         if (!refreshToken) return res.json({ message: 'Refresh token not found, login again' });
         if (!refreshTokens.includes(refreshToken))

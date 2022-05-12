@@ -217,11 +217,11 @@ const viewsingleuser = (req, res) => {
         // ]).then((response) => {
         //     res.status(200).json({ msg: "success", details: response })
         // })
-        console.log(req.body.id)
+        // console.log(req.body.id)
         userData.find({ login_id: id }).then((respons) => {
             Logindata.find({ _id: id }).then((response) => {
-                const data = { userdetails: respons, logindetails: response }
-                console.log(response);
+                // const data = { userdetails: respons, logindetails: response }
+                // console.log(response);
                 res.status(200).json({ msg: "success", userdetails: respons, logindetails: response  })
             })
         }).catch((err) => {

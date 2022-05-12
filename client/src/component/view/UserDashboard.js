@@ -2,11 +2,18 @@ import React, { useState, useEffect } from 'react';
 import Fileuploadform from '../add/Fileuploadform'
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-import UserProfile from './user/user';
+import styles from '../styles/home.module.css';
+import Sidebar from '../sidebar'
+
+import {
+  PersonPin, Edit, Delete, Add
+} from "@material-ui/icons";
+
+axios.defaults.withCredentials = true;
 
 function UserDashboard(props) {
-  const [userdata, setUserdata] = useState({ user: []});
-  const [logindata,setLogindata] =useState({ login: []})
+  const [userdata, setUserdata] = useState({ user: [] });
+  const [logindata, setLogindata] = useState({ login: [] })
   const { id } = useParams();
 
   const getUserdata = () => {
@@ -16,7 +23,7 @@ function UserDashboard(props) {
       .then((res) => {
         // console.log(res.data.details);
         setUserdata({ user: res.data.userdetails })
-        setLogindata({login:res.data.logindetails})
+        setLogindata({ login: res.data.logindetails })
         console.log("userlist :", userdata);
         console.log("loginlist :", logindata);
 
@@ -29,24 +36,102 @@ function UserDashboard(props) {
   useEffect(() => {
     getUserdata();
   })
-  return (
-    <div>
-      <div> { 
-        // console.log(userdata.user)
-      logindata.login.map((u,i)=>{
-      return  <label>{u.phonenumber}</label>
-      })
-        
-      } </div>
-      {
-        userdata.user.map((u,i)=>{
-          return(
-            <label>{u.uname}</label>
-          )
-        })
-      }
-      {/* <UserProfile userProfileData/> */}
 
+  const logout = () => {
+    axios
+      .get('http://localhost:8888/logout')
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+    window.location.reload();
+  };
+
+  return (
+
+    <div className={styles}>
+      <div className={styles.top}>
+        <p >AGRIHA</p>
+
+        <h3 style={{ marginTop: '1rem', float: "left" }}>User Profile </h3>
+
+        <button onClick={logout} className={styles.logout}>
+          Log out
+        </button>
+
+      </div>
+
+      <div className={styles.bottom}>
+        <div style={{ width: '180px' }} >
+
+          <Sidebar></Sidebar>
+
+        </div>
+
+        <div style={{ marginLeft: "3rem", marginTop: '1rem', marginBottom: '2rem', width: '100%' }}>
+
+          <div style={{ width: '100%', display: 'flex' }}>
+            <div style={{
+              height: '200px',
+              width: '200px', borderRadius: '20px',
+              boxShadow: '5px 2px 10px #030333', marginBottom: '2rem'
+            }}>
+
+              <img style={{boxShadow: '1px 2px 10px #030333',
+                borderRadius: '50px',
+                height: '80px', margin: '1rem',
+                width: '80px'
+              }} src="/assets/person/avatar-png-11554021661asazhxmdnu.png" />
+             
+              <h5 style={{ marginLeft: '1rem' }}>
+                {
+                  userdata.user.map((u, i) => {
+                    return (
+<>
+                   <PersonPin/>   <label>{u.uname}</label>
+                   </> )
+                  })
+                }
+              </h5>
+              <h5 style={{ marginLeft: '1rem' }}>
+                {
+                  // console.log(userdata.user)
+                  logindata.login.map((u, i) => {
+                    return(<> <Edit/><label>{u.phonenumber}</label></>)
+                  })
+
+                }
+              </h5>
+
+
+            </div>
+
+            <div style={{
+              height: '200px',marginLeft:'2rem',padding:'1rem',
+              width: '800px', borderRadius: '20px',
+              boxShadow: '5px 2px 10px #030333', marginBottom: '2rem'
+            }}>
+              <h6 style={{margin:'.3rem'}}> Address </h6>
+              <hr></hr>
+              {
+                userdata.user.map((u, i) => {
+                  return (
+<>
+                    <label>{u.housename}</label><br></br>
+                    <label>{u.Place}</label><br></br>
+                    <label>{u.Pincode}</label><br></br>
+                    <label>{u.country}</label>
+                  </>)
+                })
+              }
+            </div>
+
+          </div><Fileuploadform />
+          {/* <UserProfile userProfileData/> */}
+        </div>
+      </div>
     </div>
   )
 }
