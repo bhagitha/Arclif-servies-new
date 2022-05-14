@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import styles from '../styles/home.module.css';
+import styles from '../../styles/home.module.css';
 import {
   PersonPin,Edit,Delete
 } from "@material-ui/icons";
-import UserDashboard from './UserDashboard';
+
 
 
 function Adonview() {
   const [adonlist, setAdonlist] = useState({ adon: [] });
 
 
-  const getUserdata = () => {
+  const getAdondata = () => {
     axios
-      .get('http://localhost:8888/viewadonservices')
+      .get('http://localhost:8888/adonservices')
       .then((res) => {
         // console.log(res.data.details);
         setAdonlist({ adon: res.data.details })
@@ -25,12 +25,12 @@ function Adonview() {
   }
 
   useEffect(() => {
-    getUserdata();
+    getAdondata();
   })
 
   const getId=(id)=>{
     console.log(id)
-   return <UserDashboard id={id}/>
+
   }
 
   const deleteUser=(loginid,userid)=>{
@@ -49,10 +49,9 @@ function Adonview() {
        
           <tr>
             <th scope="col" style={{width:'2%'}}>  </th>
-            <th scope="col" style={{width:'8%'}}>customer </th>
-            <th scope="col" style={{width:'10%'}}>Name</th>  
-            <th scope="col" style={{width:'10%'}}>Place</th>
-            <th scope="col" style={{width:'10%'}}>Phonenumber</th>
+            <th scope="col" style={{width:'8%'}}>Adon service </th>
+            <th scope="col" style={{width:'10%'}}>Amount</th>  
+          
             <th scope="col" style={{width:'8%'}}></th>
             <th scope="col" style={{width:'8%'}}>
               
@@ -61,8 +60,8 @@ function Adonview() {
          
         </thead>
         
-        {userlist.users.map((datas, i) => {
-          console.log("data :", datas)
+        {adonlist.adon.map((datas, i) => {
+          console.log("adon data :", datas)
 
           return (
             //  <label style={{ color: "white" }}>username :{datas.uname}</label>
@@ -70,18 +69,12 @@ function Adonview() {
               <tr>
                 <td style={{color:'#04524b'}}><PersonPin/></td>
                 <td>{i+1}</td>
-                <td>{datas.uname}</td>
-                <td>{datas.Place}</td>
-                {datas.userlogindetails.map((data) => {
-                  return (<>
-                    <td>{data.phonenumber}</td> 
-                    <td><Edit onClick={()=>{getId(data._id)}}/></td>
-                <td><Delete style={{color:'red'}} onClick={()=>{deleteUser(data._id,datas._id)}}/></td>
-                </>
-                )
-                
-                })}
-                
+                <td>{datas.adonservicename}</td>
+                <td>{datas.adonserviceamount}</td>
+               
+                <td><Edit onClick={()=>{getId(datas._id)}}/></td>
+                <td><Delete style={{color:'red'}} onClick={()=>{deleteUser(datas._id)}}/></td>
+               
               </tr>
                
             </tbody>

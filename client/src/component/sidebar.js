@@ -38,7 +38,8 @@ export default function Sidebar() {
          
           <li className="sidebarListItem">
             <Chat className="sidebarIcon" />
-            <span className="sidebarListItemText">Adon-Services</span>
+            <Link to="/adonservices" className="sidebarListItemText" > 
+            <span className="sidebarListItemText">Adon-Services</span></Link>
           </li>
           <hr></hr>
           <li className="sidebarListItem">

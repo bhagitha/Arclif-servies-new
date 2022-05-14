@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import styles from '../styles/home.module.css';
+import styles from '../../styles/home.module.css';
 import {
     Receipt, Edit, Delete
 } from "@material-ui/icons";
+import {useHistory} from  'react-router-dom';
 
 
 function PlanView() {
+    const history = useHistory();
     const [planlist, setPlanlist] = useState({ plans: [] });
 
 
@@ -26,6 +28,9 @@ function PlanView() {
     useEffect(() => {
         getPlandata();
     })
+    const viewplan=(id)=>{
+        history.push(`/plandashboard/${id}`)
+    }
     return (
         <>
             <div className="ml-5">
@@ -59,7 +64,7 @@ function PlanView() {
                                             <tr>{data}</tr>)
                                     })}
                                     <td>{datas.initial_payment}</td>
-                                    <td><Edit /></td>
+                                    <td><Edit onClick={() => {viewplan(datas._id) }} /></td>
                                     <td><Delete /></td>
                                 </tr>
 

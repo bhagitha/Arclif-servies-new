@@ -14,6 +14,8 @@ axios.defaults.withCredentials = true;
 function UserDashboard(props) {
   const [userdata, setUserdata] = useState({ user: [] });
   const [logindata, setLogindata] = useState({ login: [] })
+  const [userPlan, setUserplan] = useState({ userplan: [] })
+const [planServices,setPlanservices]=useState({services:[]})
   const { id } = useParams();
 
   const getUserdata = () => {
@@ -31,6 +33,14 @@ function UserDashboard(props) {
       .catch((err) => {
         console.log(err.response);
       });
+
+    axios.post('http://localhost:8888/getuserplan', { login_id: id })
+      .then((res) => {
+        console.log(res);
+        setUserplan({ userplan: res.data.details })
+      })
+      setPlanservices({services:userPlan.userplan.plan_services})
+      console.log("plan data", userPlan.userplan.plan_services)
   }
 
   useEffect(() => {
@@ -70,28 +80,30 @@ function UserDashboard(props) {
 
         </div>
 
-        <div style={{ marginLeft: "3rem", marginTop: '1rem', marginBottom: '2rem', width: '100%' }}>
+        <div style={{ marginLeft: "3rem", marginTop: '1rem', 
+        marginBottom: '2rem', width: '100%' }}>
 
           <div style={{ width: '100%', display: 'flex' }}>
             <div style={{
               height: '200px',
-              width: '200px', borderRadius: '20px',
-              boxShadow: '5px 2px 10px #030333', marginBottom: '2rem'
+              width: '250px', borderRadius: '20px',
+              boxShadow: '1px 2px 10px #030333', marginBottom: '2rem'
             }}>
 
-              <img style={{boxShadow: '1px 2px 10px #030333',
+              <img style={{
+                boxShadow: '1px 2px 10px #030333',
                 borderRadius: '50px',
                 height: '80px', margin: '1rem',
                 width: '80px'
               }} src="/assets/person/avatar-png-11554021661asazhxmdnu.png" />
-             
+
               <h5 style={{ marginLeft: '1rem' }}>
                 {
                   userdata.user.map((u, i) => {
                     return (
-<>
-                   <PersonPin/>   <label>{u.uname}</label>
-                   </> )
+                      <>
+                        <PersonPin />   <label>{u.uname}</label>
+                      </>)
                   })
                 }
               </h5>
@@ -99,7 +111,7 @@ function UserDashboard(props) {
                 {
                   // console.log(userdata.user)
                   logindata.login.map((u, i) => {
-                    return(<> <Edit/><label>{u.phonenumber}</label></>)
+                    return (<> <Edit /><label>{u.phonenumber}</label></>)
                   })
 
                 }
@@ -109,26 +121,49 @@ function UserDashboard(props) {
             </div>
 
             <div style={{
-              height: '200px',marginLeft:'2rem',padding:'1rem',
-              width: '800px', borderRadius: '20px',
-              boxShadow: '5px 2px 10px #030333', marginBottom: '2rem'
+              height: '200px', marginLeft: '2rem', padding: '1rem',
+              width: '600px', borderRadius: '20px',
+              boxShadow: '1px 2px 10px #030333', marginBottom: '2rem'
             }}>
-              <h6 style={{margin:'.3rem'}}> Address </h6>
+              <h5 style={{ margin: '.3rem' }}> Personal details </h5>
               <hr></hr>
               {
                 userdata.user.map((u, i) => {
                   return (
-<>
-                    <label>{u.housename}</label><br></br>
-                    <label>{u.Place}</label><br></br>
-                    <label>{u.Pincode}</label><br></br>
-                    <label>{u.country}</label>
-                  </>)
+                    <>
+                      <label>{u.housename}</label><br></br>
+                      <label>{u.Place}</label><br></br>
+                      <label>{u.Pincode}</label><br></br>
+                      <label>{u.country}</label>
+                    </>)
                 })
               }
+
             </div>
 
-          </div><Fileuploadform />
+          </div>
+          <div>
+
+            <h6>Plan choosen</h6>
+            <hr></hr>
+            <h6>{userPlan.userplan.plan_name}</h6>
+            <h6>{userPlan.userplan.plan_amount}</h6>
+            <h6>{userPlan.userplan.initial_payment}</h6>
+            {/* <input type="checkbox" /> 
+            {userPlan.userplan.plan_services} */}
+             {/* {planServices.services.map((u, i)=>{
+               return(
+               console.log(u)
+               )
+             })} */}
+          
+             
+          </div>
+
+
+
+
+          <Fileuploadform />
           {/* <UserProfile userProfileData/> */}
         </div>
       </div>

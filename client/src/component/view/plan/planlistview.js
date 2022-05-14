@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import styles from '../styles/home.module.css';
-import Requirements from '../requirements'
-import Sidebar from '../sidebar'
-import Userview from './userview';
-import Adonview from './adonview';
+import styles from '../../styles/home.module.css';
+import Sidebar from '../../sidebar'
 
 import {
 	PersonPin,Edit,Delete,Add
   } from "@material-ui/icons";
+  import PlanView from './planview'
 
 axios.defaults.withCredentials = true;
-function Adonlistview() {
+
+function PlanlistView() {
 
 	const logout = () => {
 		axios
@@ -29,8 +28,6 @@ function Adonlistview() {
 
 	return (
 		<>
-		{/* {data} */}
-
 		<div className={styles}>
 			<div className={styles.top}>
 				<p >AGRIHA</p>
@@ -47,18 +44,13 @@ function Adonlistview() {
 				</div>
 
 				<div>
-					{/* {userlist.map((data, i) => {
-					return <label key={i}>{data.uname}</label>} */}
-
+				
 					<button 
 					className={styles.addbutton}> 
-					<Add/> Adon services</button>
-				<Adnoview/>
+					<Add/> Plan</button>
+					<PlanView/>
 					
-					{/* <Requirements/> */}
 				
-					
-					
 				</div>
 
 			</div>
@@ -67,4 +59,4 @@ function Adonlistview() {
 	);
 }
 
-export default Adonlistview;
+export default PlanlistView;

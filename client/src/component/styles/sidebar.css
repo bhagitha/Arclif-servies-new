@@ -5,7 +5,7 @@
     position: sticky;
     top: 50px;
     color: rgba(1, 31, 65, 0.781);
-    box-shadow: 1px 20px 15px #030303;
+    box-shadow: 1px 20px 15px #585757;
   }
   
   ::-webkit-scrollbar {
@@ -46,7 +46,7 @@
  /* text-decoration: underline; */
    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color:rgb(12, 14, 1);
-    text-shadow: 1px 12px 3px rgba(0, 0, 0, 0.50);
+    text-shadow: 1px 12px 3px rgba(34, 33, 33, 0.5);
     /* box-shadow: 5px 25px 13px rgba(0, 0, 0, 0.50); */
   }
   .sidebarIcon {
