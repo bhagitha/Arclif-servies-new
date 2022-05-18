@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import Fileuploadform from '../add/Fileuploadform'
 import axios from 'axios';
-import { useParams } from "react-router-dom";
+import { useParams,useHistory } from "react-router-dom";
 import styles from '../styles/home.module.css';
 import Sidebar from '../sidebar'
+import UploadFileComponent from '../add/UploadFileComponent';
 
 import {
   PersonPin, Edit, Delete, Add
 } from "@material-ui/icons";
 
-axios.defaults.withCredentials = true;
 
 function UserDashboard(props) {
+  const history=useHistory()
   const [userdata, setUserdata] = useState({ user: [] });
   const [logindata, setLogindata] = useState({ login: [] })
   const [userPlan, setUserplan] = useState({ userplan: [] })
-const [planServices,setPlanservices]=useState({services:[]})
+  const [planServices, setPlanservices] = useState([])
+  const [buildingdetails,setBuildingdetails]=useState('')
+  
   const { id } = useParams();
 
   const getUserdata = () => {
@@ -26,8 +29,8 @@ const [planServices,setPlanservices]=useState({services:[]})
         // console.log(res.data.details);
         setUserdata({ user: res.data.userdetails })
         setLogindata({ login: res.data.logindetails })
-        console.log("userlist :", userdata);
-        console.log("loginlist :", logindata);
+        // console.log("userlist :", userdata);
+        // console.log("loginlist :", logindata);
 
       })
       .catch((err) => {
@@ -36,16 +39,23 @@ const [planServices,setPlanservices]=useState({services:[]})
 
     axios.post('http://localhost:8888/getuserplan', { login_id: id })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setUserplan({ userplan: res.data.details })
+        setPlanservices(res.data.details.plan_services)
       })
-      setPlanservices({services:userPlan.userplan.plan_services})
-      console.log("plan data", userPlan.userplan.plan_services)
+
+      axios.post('http:localhost:8888/getbuildingdetails',{id:id})
+      .then((response)=>{
+        setBuildingdetails(response.data.total_area)
+        console.log("buildingdetails :",response)
+      })
+    // setPlanservices({services:userPlan.userplan.plan_services})
+    // console.log("plan data", userPlan.userplan.plan_services)
   }
 
   useEffect(() => {
     getUserdata();
-  })
+  },[])
 
   const logout = () => {
     axios
@@ -58,6 +68,9 @@ const [planServices,setPlanservices]=useState({services:[]})
       });
     window.location.reload();
   };
+const upload=()=>{
+// history.push(/uploadfile')
+}
 
   return (
 
@@ -80,8 +93,10 @@ const [planServices,setPlanservices]=useState({services:[]})
 
         </div>
 
-        <div style={{ marginLeft: "3rem", marginTop: '1rem', 
-        marginBottom: '2rem', width: '100%' }}>
+        <div style={{
+          marginLeft: "3rem", marginTop: '1rem',
+          marginBottom: '2rem', width: '100%'
+        }}>
 
           <div style={{ width: '100%', display: 'flex' }}>
             <div style={{
@@ -116,10 +131,7 @@ const [planServices,setPlanservices]=useState({services:[]})
 
                 }
               </h5>
-
-
             </div>
-
             <div style={{
               height: '200px', marginLeft: '2rem', padding: '1rem',
               width: '600px', borderRadius: '20px',
@@ -149,21 +161,37 @@ const [planServices,setPlanservices]=useState({services:[]})
             <h6>{userPlan.userplan.plan_name}</h6>
             <h6>{userPlan.userplan.plan_amount}</h6>
             <h6>{userPlan.userplan.initial_payment}</h6>
-            {/* <input type="checkbox" /> 
-            {userPlan.userplan.plan_services} */}
-             {/* {planServices.services.map((u, i)=>{
-               return(
-               console.log(u)
-               )
-             })} */}
-          
-             
+
+
+            {/* {userPlan.userplan.plan_services}
+            {console.log(userPlan.userplan.plan_services)} */}
+
+            {planServices.map((u, i) => {
+              return (
+                <>
+                  <input type="checkbox" />
+                  <label>{u}</label>
+                  <br></br>
+                </>
+              )
+            })}
+
           </div>
-
-
-
-
-          <Fileuploadform />
+          <div className="container">
+                <div className="row">
+                    <form>
+                        <div className="form-group">
+                            <input type="file" name="imgCollection" onChange={(e)=>{console.log(e.target)}}  />
+                        </div>
+                        <div className="form-group">
+                            <button className="btn btn-primary" type="submit">Upload</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+         
+            {/* <UploadFileComponent id={id}/> */}
+          {/* <Fileuploadform /> */}
           {/* <UserProfile userProfileData/> */}
         </div>
       </div>

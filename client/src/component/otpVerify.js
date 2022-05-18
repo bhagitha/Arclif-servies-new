@@ -70,6 +70,7 @@ history.push('/home')
 					<button onClick={confirmOtp} className={styles.submit}>
 						Confirm OTP
 					</button>
+					
 				</div>
 			</div>
 		</div>

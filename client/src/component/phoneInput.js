@@ -13,7 +13,8 @@ function PhoneInput(props) {
 		console.log(`Phone : ${value.phone}`)
 		axios
 			.post('http://localhost:8888/sendOTP', {
-				phonenumber: `${value.phone}`
+				phonenumber: `${value.phone}`,
+				flag:'login'
 			})
 			.then(function (res) {
 				console.log(res.data.otp);

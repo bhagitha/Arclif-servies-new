@@ -4,7 +4,7 @@ const auth = require('../controller/auth')
 const controller=require('../controller/controller')
 const path = require('path');
 const multer = require('multer');
-const File = require('../model/fileuploadModel');
+const fileupload = require('../model/fileupload');
 // const ab=require('../../client/public/assets')
 
 router.post('/sendOTP', auth.login);
@@ -73,64 +73,114 @@ router.post('/getbuildingdetails',controller.getBuildingDetails)
     //   cb(undefined, true); // continue with upload
     // }
 //   });
-  const storage=multer.diskStorage({
-    destination: function(req,file,callback){
-        callback(null,'../client/public/assets')
-    },
-    filename: function(req,file,callback){
-        callback(null,req.body.name)
-    }
-})
- var upload=multer({storage:storage})
+//   const storage=multer.diskStorage({
+//     destination: function(req,file,callback){
+//         callback(null,'../client/public/assets')
+//     },
+//     filename: function(req,file,callback){
+//         callback(null,req.body.name)
+//     }
+// })
+//  var upload=multer({storage:storage})
 
-  router.post('/upload',upload.single("file"),(req, res) => {
-      console.log(`${req.body},${req.file}`)
-      try {
-        const { title, description } = req.body;
-        const { path, mimetype } = req.file;
-        const file = new File({
+//   router.post('/upload',upload.single("file"),(req, res) => {
+//       console.log(`${req.body},${req.file}`)
+//       try {
+//         const { title, description } = req.body;
+//         const { path, mimetype } = req.file;
+//         const file = new File({
            
-          title:title,
-          description:description,
-          file_path: path,
-          file_mimetype: mimetype
-        });
-        console.log("file : ",file)
-         file.save();
-        res.send('file uploaded successfully.');
-      } catch (error) {
-        res.status(400).send('Error while uploading file. Try again later.');
-      }
-    },
-    (error, req, res, next) => {
-      if (error) {
-        res.status(500).send(error.message);
-      }
-    }
-  );
+//           title:title,
+//           description:description,
+//           file_path: path,
+//           file_mimetype: mimetype
+//         });
+//         console.log("file : ",file)
+//          file.save();
+//         res.send('file uploaded successfully.');
+//       } catch (error) {
+//         res.status(400).send('Error while uploading file. Try again later.');
+//       }
+//     },
+//     (error, req, res, next) => {
+//       if (error) {
+//         res.status(500).send(error.message);
+//       }
+//     }
+//   );
   
-  router.get('/getAllFiles',  (req, res) => {
-    try {
-      const files =  File.find({});
-      const sortedByCreationDate = files.sort(
-        (a, b) => b.createdAt - a.createdAt
-      );
-      res.send(sortedByCreationDate);
-    } catch (error) {
-      res.status(400).send('Error while getting list of files. Try again later.');
-    }
-  });
+//   router.get('/getAllFiles',  (req, res) => {
+//     try {
+//       const files =  File.find({});
+//       const sortedByCreationDate = files.sort(
+//         (a, b) => b.createdAt - a.createdAt
+//       );
+//       res.send(sortedByCreationDate);
+//     } catch (error) {
+//       res.status(400).send('Error while getting list of files. Try again later.');
+//     }
+//   });
   
-  router.get('/download/:id',  (req, res) => {
-    try {
-      const file =  File.findById(req.params.id);
-      res.set({
-        'Content-Type': file.file_mimetype
-      });
-      res.sendFile(path.join(__dirname, '..', file.file_path));
-    } catch (error) {
-      res.status(400).send('Error while downloading file. Try again later.');
-    }
+//   router.get('/download/:id',  (req, res) => {
+//     try {
+//       const file =  File.findById(req.params.id);
+//       res.set({
+//         'Content-Type': file.file_mimetype
+//       });
+//       res.sendFile(path.join(__dirname, '..', file.file_path));
+//     } catch (error) {
+//       res.status(400).send('Error while downloading file. Try again later.');
+//     }
+//   });
+
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, DIR);
+  },
+  filename: (req, file, cb) => {
+      const fileName = file.originalname.toLowerCase().split(' ').join('-');
+      cb(null,  fileName)
+  }
+});
+var upload = multer({
+  storage: storage,
+  // fileFilter: (req, file, cb) => {
+  //     if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+  //         cb(null, true);
+  //     } else {
+  //         cb(null, false);
+  //         return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+  //     }
+  // }
+});
+
+router.post('/upload-images', upload.single('imgCollection'), (req, res, next) => {
+  const login_id=req.body.login_id;
+  const reqFiles = [];
+  const url = req.protocol + '://' + req.get('host')
+  for (var i = 0; i < req.files.length; i++) {
+      reqFiles.push(url + '/public/files' + req.files[i].filename)
+  }
+  const fileuploads = new fileupload({
+      login_id: login_id,
+      imgCollection: reqFiles
   });
+  fileuploads.save().then(result => {
+      res.json({
+          message: "Done upload!",
+          details: {
+              _id: result._id,
+            
+              imgCollection: result.imgCollection
+          }
+      })
+  }).catch(err => {
+      console.log(err),
+          res.status(500).json({
+              error: err
+          });
+  })
+})
 
 module.exports= router

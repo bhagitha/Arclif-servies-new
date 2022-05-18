@@ -8,6 +8,7 @@ const BuldingDetails = require('../model/buildingdetails');
 const RequirementslistData = require('../model/requirementslist');
 const userAdonData = require('../model/useradonservices')
 
+
 //create plan
 const createPlan = (req, res) => {
     try {
@@ -319,8 +320,6 @@ const setuserrequirements = (req, res) => {
 // }
 
 // add building details
-
-
 const addBuildingDetails = (req, res) => {
     //login_id,paymentplan_id,adonservice_id
     try {
@@ -429,11 +428,11 @@ const getRequirementsList = (req, res) => {
 const choosePlan = (req, res) => { //************************ */
     //login_id,paymentplan_id
     try {
-        console.log(req.body)
+        // console.log(req.body)
         const loginid = req.body.login_id;
         userPlanData.findOne({ login_id: loginid })
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 if (!response) {
                     const RequirementsData = userPlanData(req.body)
                     RequirementsData.save().then((response) => {
@@ -456,11 +455,11 @@ const choosePlan = (req, res) => { //************************ */
 }
 const getuserplan = (req, res) => {
     try {
-        console.log(req.body)
+        // console.log(req.body)
         const loginid = req.body.login_id;
         userPlanData.findOne({ login_id: loginid })
             .then((response) => {
-                console.log(response.paymentplan_id)
+                // console.log(response.paymentplan_id)
                 PaymentPlanData.findById({ _id: response.paymentplan_id })
                     .then((response) => {
                         res.status(200).json({ msg: "success", details: response })
@@ -536,6 +535,9 @@ const getuseradon = (req, res) => {
         res.send(err)
     }
 }
+
+
+
 module.exports = {
     createPlan,
     viewplan,

@@ -19,6 +19,8 @@ const JWT_REFRESH_TOKEN = process.env.JWT_REFRESH_TOKEN;
 let refreshTokens = [];
 
 //<!==================Login/Register ===========================/>//
+
+
 const login = (req, res) => {
     try {
 
@@ -30,17 +32,35 @@ const login = (req, res) => {
             const data = `${phone}.${otp}.${expires}`;
             const hash = crypto.createHmac('sha256', smsKey).update(data).digest('hex');
             const fullHash = `${hash}.${expires}`;
+            //change
+            var msg="";
+            const message=req.body.flag;
+           
+            Logindata.find({ phonenumber: phone })
+            .then((response) => {
+                if(response.length==0){ 
+                   msg='register' 
+                }else {msg='login'}
+            })
+     
 
+            setTimeout(()=>{
+            if(msg==message){
             var options = { authorization: fast2smsKey, message: `Security code For ARCLIF-AGRIHA is ${otp}`, numbers: [phone] }
             fast2sms.sendMessage(options)
                 .then((messages) => {
                     console.log(messages)
-                    res.status(200).send({ phone: phone, hash: fullHash, msg: `OTP :${otp} send successfully`, status: "200" });
+                    res.status(200).send({ phone: phone, hash: fullHash, msg: `OTP :${otp} send successfully`, status: "200",flag:`${msg}` });
                 })
                 .catch((err) => {
                     console.error(err);
                     res.status(404).send({ msg: "Fast-2-sms error", status: "404" });
                 });
+            }else{
+                res.status(200).send({ phone: phone, flag:`${msg}` });
+
+            }
+        },1000)
         } else {
             res.json({ msg: `phonenumber required !!` })
         }

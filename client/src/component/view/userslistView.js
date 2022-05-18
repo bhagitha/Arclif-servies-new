@@ -8,7 +8,7 @@ import {
 	PersonPin,Edit,Delete,Add
   } from "@material-ui/icons";
 
-axios.defaults.withCredentials = true;
+
 function UserslistView() {
 
 	const logout = () => {

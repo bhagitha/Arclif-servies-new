@@ -18,6 +18,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import FilesList from './component/add/FilesList';
 import PlanDashboard from './component/view/plan/planDashboard'
 import Adonlistview from './component/view/adonservices/adonlistview'
+import UploadFileComponent from './component/add/UploadFileComponent'
 // import './styles.scss';
 
 ReactDOM.render(
@@ -50,6 +51,9 @@ ReactDOM.render(
         </Route>
         <Route exact path='/adonservices'>
           <Adonlistview />
+        </Route>
+        <Route exact path='/uploadfile'>
+          <UploadFileComponent />
         </Route>
       </Switch>
     </BrowserRouter>

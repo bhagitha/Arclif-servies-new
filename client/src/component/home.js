@@ -57,12 +57,14 @@ function Home() {
 				<Sidebar></Sidebar>
 				
 				</div>	
+			
 				{/* <Userdashboard/> */}
 				{/* <Link to='/userdashboard'> User Dashboard</Link> */}
 				{/* <Requirements/> */}
 				{/* <div className={styles.card} />
 				<div className={styles.words}> {state.value}</div> */}
 			</div>
+			
 		</div>
 	);
 }
