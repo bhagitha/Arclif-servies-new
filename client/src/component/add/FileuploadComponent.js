@@ -16,6 +16,8 @@ function FileuploadComponent() {
         filename: "",
         total_amount: 0,
     });
+    const [buildingdetails, setBuildingdetails] = useState([])
+
     const [files, setFiles] = useState([]);
 
     const { id } = useParams();
@@ -33,6 +35,13 @@ function FileuploadComponent() {
             console.log("Files data : ", response.data.response)
             setFiles(response.data.response)
         })
+
+        
+    axios.post('http://localhost:8888/getbuildingdetails', { id: id })
+    .then((response) => {
+      setBuildingdetails(response.data.details)
+      console.log("buildingdetails :", response.data.details)
+    })
     }, [])
 
     const FileAdd = async (e) => {
@@ -100,6 +109,9 @@ function FileuploadComponent() {
                         <div className="container">
                             <div className="row">
                                 <form onSubmit={FileAdd} encType='multipart/form-data'>
+                                <h6>{buildingdetails.map((u,i)=>{return (<div key={i}><label > total_area :{u.total_area} </label>
+                
+                </div>)})}</h6>
                                     <Form.Group className="mb-3 w-25" >
                                         <Form.Control type="text" placeholder="login_id" name='login_id' value={id} onChange={onChangeHandler} />
                                     </Form.Group>
