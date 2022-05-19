@@ -369,7 +369,7 @@ const updateBuildingDetails = (req, res) => {
 const getBuildingDetails = (req, res) => {
     try {
         const loginid = req.body.id;
-        BuildingDetails.findById({ login_id: loginid }).then((response) => {
+        BuldingDetails.find({ login_id: loginid }).then((response) => {
             console.log(response);
             res.status(200).json({ msg: "success", details: response })
         }).catch((err) => {

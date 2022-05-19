@@ -19,6 +19,7 @@ import FilesList from './component/add/FilesList';
 import PlanDashboard from './component/view/plan/planDashboard'
 import Adonlistview from './component/view/adonservices/adonlistview'
 import UploadFileComponent from './component/add/UploadFileComponent'
+import FileuploadComponent from './component/add/FileuploadComponent'
 // import './styles.scss';
 
 ReactDOM.render(
@@ -52,8 +53,8 @@ ReactDOM.render(
         <Route exact path='/adonservices'>
           <Adonlistview />
         </Route>
-        <Route exact path='/uploadfile'>
-          <UploadFileComponent />
+        <Route exact path='/uploadfile/:id'>
+          <FileuploadComponent />
         </Route>
       </Switch>
     </BrowserRouter>

@@ -43,10 +43,9 @@ const login = (req, res) => {
                 }else {msg='login'}
             })
      
-
             setTimeout(()=>{
             if(msg==message){
-            var options = { authorization: fast2smsKey, message: `Security code For ARCLIF-AGRIHA is ${otp}`, numbers: [phone] }
+            var options = { authorization: fast2smsKey, message: `Security code For AGRIHA is ${otp}`, numbers: [phone] }
             fast2sms.sendMessage(options)
                 .then((messages) => {
                     console.log(messages)

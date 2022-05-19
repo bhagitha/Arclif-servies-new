@@ -24,7 +24,8 @@ function PlanDashboard() {
     plan_name: '',
     plan_amount: '',
     plan_services: [],
-    initial_payment: ''
+    initial_payment: '',
+    stages:[]
   });
   const { id } = useParams();
   // const [plan, setPlan] = useState({
@@ -146,7 +147,7 @@ const handleChange=(e)=>{
                   variant="outlined"
 
                 />
-                <br></br>
+                
                 <TextField
                   required
                   id="outlined-required"
@@ -154,8 +155,14 @@ const handleChange=(e)=>{
                   value={plandata.plan.initial_payment}
                   variant="outlined"
                 />
-
-
+                  <TextField
+                  required
+                  id="outlined-required"
+                  helperText="initial payment"
+                  value={plandata.plan.no_of_stages}
+                  variant="outlined"
+                />
+<br></br>
                 <TextField
                   required
                   id="outlined-required"
@@ -167,6 +174,8 @@ const handleChange=(e)=>{
                 />
 
                 <br></br>
+
+
                 <button className='btn btn-info mr-2 text-white' onClick={() => 
                   { update(plandata._id) }}>Update</button>
                 <button className='btn btn-secondary'>Cancel</button>

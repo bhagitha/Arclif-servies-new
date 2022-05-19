@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Fileuploadform from '../add/Fileuploadform'
 import axios from 'axios';
-import { useParams,useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import styles from '../styles/home.module.css';
-import Sidebar from '../sidebar'
+import Sidebar from '../sidebar';
 import UploadFileComponent from '../add/UploadFileComponent';
+import { Form, Button, Card } from 'react-bootstrap'
 
 import {
   PersonPin, Edit, Delete, Add
@@ -12,13 +13,13 @@ import {
 
 
 function UserDashboard(props) {
-  const history=useHistory()
+  const history = useHistory()
   const [userdata, setUserdata] = useState({ user: [] });
   const [logindata, setLogindata] = useState({ login: [] })
   const [userPlan, setUserplan] = useState({ userplan: [] })
   const [planServices, setPlanservices] = useState([])
-  const [buildingdetails,setBuildingdetails]=useState('')
-  
+  const [buildingdetails, setBuildingdetails] = useState('')
+
   const { id } = useParams();
 
   const getUserdata = () => {
@@ -44,10 +45,10 @@ function UserDashboard(props) {
         setPlanservices(res.data.details.plan_services)
       })
 
-      axios.post('http:localhost:8888/getbuildingdetails',{id:id})
-      .then((response)=>{
+    axios.post('http:localhost:8888/getbuildingdetails', { id: id })
+      .then((response) => {
         setBuildingdetails(response.data.total_area)
-        console.log("buildingdetails :",response)
+        console.log("buildingdetails :", response)
       })
     // setPlanservices({services:userPlan.userplan.plan_services})
     // console.log("plan data", userPlan.userplan.plan_services)
@@ -55,7 +56,7 @@ function UserDashboard(props) {
 
   useEffect(() => {
     getUserdata();
-  },[])
+  }, [])
 
   const logout = () => {
     axios
@@ -68,9 +69,9 @@ function UserDashboard(props) {
       });
     window.location.reload();
   };
-const upload=()=>{
-// history.push(/uploadfile')
-}
+  const upload = () => {
+    // history.push(/uploadfile')
+  }
 
   return (
 
@@ -98,15 +99,17 @@ const upload=()=>{
           marginBottom: '2rem', width: '100%'
         }}>
 
-          <div style={{ width: '100%', display: 'flex' }}>
+          <div style={{ width: '100%'}}>
+            <div style={{display:'flex'}}>
+
             <div style={{
               height: '200px',
               width: '250px', borderRadius: '20px',
-              boxShadow: '1px 2px 10px #030333', marginBottom: '2rem'
+              boxShadow: '1px 2px 10px #a3a3c2', marginBottom: '2rem'
             }}>
 
               <img style={{
-                boxShadow: '1px 2px 10px #030333',
+                boxShadow: '1px 2px 10px #a3a3c2',
                 borderRadius: '50px',
                 height: '80px', margin: '1rem',
                 width: '80px'
@@ -132,52 +135,92 @@ const upload=()=>{
                 }
               </h5>
             </div>
+           <div style={{ marginLeft: "3rem", display: 'flex'}}>
+             <div>
+
+           <Card style={{ width: '20rem',borderRadius: '20px',height:'200px',backgroundColor:'#f2f2f2',
+              boxShadow: '1px 2px 10px #a3a3c2' }}>
+           
+           <Card.Body>
+             <Card.Title>STAGE</Card.Title>
+             <Card.Text>
+               Clieck below to insert documents
+             </Card.Text>
+             <Link to={`/uploadfile/${id}`}>
+             <Button variant="info">UPLOAD HERE</Button></Link>  
+           </Card.Body>
+         </Card> 
+         </div>
+        
+           </div>
+           </div>
+           
             <div style={{
-              height: '200px', marginLeft: '2rem', padding: '1rem',
+              height: '400px', padding: '1rem',
               width: '600px', borderRadius: '20px',
-              boxShadow: '1px 2px 10px #030333', marginBottom: '2rem'
-            }}>
-              <h5 style={{ margin: '.3rem' }}> Personal details </h5>
-              <hr></hr>
-              {
-                userdata.user.map((u, i) => {
+              boxShadow: '1px 2px 10px #a3a3c2', marginBottom: '2rem'
+            }}> 
+            <h5 style={{ margin: '.3rem' }}>  Details   </h5>
+            <hr></hr>
+
+              <div style={{
+              display: 'flex'}}>
+
+              <div style={{ marginTop: '0', marginLeft: '1rem', borderRight: '1px solid #a3a3c2', width: '150px' }}>
+                {
+                  userdata.user.map((u, i) => {
+                    return (
+                      <>
+                        <label>{u.housename}</label><br></br>
+                        <label>{u.Place}</label><br></br>
+                        <label>{u.Pincode}</label><br></br>
+                        <label>{u.country}</label>
+                      </>)
+                  })
+                }
+              </div>
+              <div style={{ marginTop: '0', marginLeft: '1rem', borderRight: '1px solid #a3a3c2', width: '150px' }}>
+
+                <h6>{userPlan.userplan.plan_name}</h6>
+                <h6>{userPlan.userplan.plan_amount}</h6>
+                <h6>{userPlan.userplan.initial_payment}</h6>
+              </div>
+              <div style={{ marginTop: '0', marginLeft: '1rem'}}>
+                {planServices.map((u, i) => {
                   return (
                     <>
-                      <label>{u.housename}</label><br></br>
-                      <label>{u.Place}</label><br></br>
-                      <label>{u.Pincode}</label><br></br>
-                      <label>{u.country}</label>
-                    </>)
-                })
-              }
-
+                      {/* <input type="checkbox" /> */}
+                      <label>{u}</label>
+                      <br></br>
+                    </>
+                  )
+                })}
+              </div>
+              <div>
             </div>
 
-          </div>
-          <div>
 
-            <h6>Plan choosen</h6>
+            <div>
+          
+              {/* <h6>Plan choosen</h6>
             <hr></hr>
             <h6>{userPlan.userplan.plan_name}</h6>
             <h6>{userPlan.userplan.plan_amount}</h6>
-            <h6>{userPlan.userplan.initial_payment}</h6>
+            <h6>{userPlan.userplan.initial_payment}</h6> */}
 
 
-            {/* {userPlan.userplan.plan_services}
+              {/* {userPlan.userplan.plan_services}
             {console.log(userPlan.userplan.plan_services)} */}
 
-            {planServices.map((u, i) => {
-              return (
-                <>
-                  <input type="checkbox" />
-                  <label>{u}</label>
-                  <br></br>
-                </>
-              )
-            })}
-
+            </div>
+        
           </div>
-          <div className="container">
+
+        
+          
+        
+          {/* <Link to={`/uploadfile/${u}/${id}`}> Stage1</Link>   */}
+          {/* <div className="container">
                 <div className="row">
                     <form>
                         <div className="form-group">
@@ -188,38 +231,24 @@ const upload=()=>{
                         </div>
                     </form>
                 </div>
-            </div>
-         
-            {/* <UploadFileComponent id={id}/> */}
+            </div> */}
+
+          {/* <UploadFileComponent id={id}/> */}
           {/* <Fileuploadform /> */}
           {/* <UserProfile userProfileData/> */}
-        </div>
-      </div>
+      
+          
+    </div></div>
+    </div>
+
+    
+    
+    </div>
+    
+  
+
     </div>
   )
 }
 
-// const userProfileData = {
-//   logoArclif061: "logo-arclif-06-1-3.png",
-//   spanText1: "Personal Details",
-//   spanText2: "1",
-//   vector2: "vector-9.png",
-//   spanText3: "Your Cart",
-//   spanText4: "Personal Details",
-//   spanText5: "Name of customer",
-//   spanText6: "Mobile Number",
-//   spanText7: "Upload Your Own Plot Image",
-//   vector3: "vector-3.png",
-//   rectangle14: "rectangle-14-1.png",
-//   overlapGroup3: "rectangle-27-1.png",
-//   spanText8: "Upload Photo",
-//   group8: "group-8-1.png",
-//   spanText9: "Adresss",
-//   spanText10: "E mail id",
-//   vector4: "vector-1.png",
-//   spanText11: "Add Photo",
-//   spanText12: "Location",
-//   spanText13: "Your Photos",
-//   vector5: "vector-2.png",
-// };
 export default UserDashboard
