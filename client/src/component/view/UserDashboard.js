@@ -178,7 +178,10 @@ function UserDashboard(props) {
                       </>)
                   })
                 }
-                <h6><label> total_area : {buildingdetails}</label></h6>
+                <h6>{buildingdetails.map((u,i)=>{return (<div key={i}><label > total_area :{u.total_area} </label>
+                
+                </div>)})}</h6>
+              
               </div>
               <div style={{ marginTop: '0', marginLeft: '1rem', borderRight: '1px solid #a3a3c2', width: '150px' }}>
 

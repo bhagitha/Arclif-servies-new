@@ -102,7 +102,7 @@ router.post('/filedataupload/:id', (req, res) => {
 router.post('/getfiles', (req, res) => {
     try {
         if (req.body.id) {
-            Userfilestore.find({ User_id: req.body.id })
+            Userfilestore.find({ login_id: req.body.id })
                 .then((response) => {
                     res.send({ msg: 'added file data', response: response })
                 })
