@@ -25,7 +25,7 @@ function PlanDashboard() {
     plan_amount: '',
     plan_services: [],
     initial_payment: '',
-    stages:[]
+    stages: []
   });
   const { id } = useParams();
   // const [plan, setPlan] = useState({
@@ -44,6 +44,10 @@ function PlanDashboard() {
         // console.log(res.data.details);
         // setPlandata({ plan_name: res.data.details.plan_name })
         setPlandata({ plan: res.data.details })
+        // plandata.plan.forEach(element => {
+        //    setPlandata({stages: element})
+        // });
+
 
         console.log("single plan :", plandata);
 
@@ -54,10 +58,10 @@ function PlanDashboard() {
   }
 
 
-const handleChange=(e)=>{
-  // setPlandata({...state,[e.target.name]:value})
+  const handleChange = (e) => {
+    // setPlandata({...state,[e.target.name]:value})
 
-}
+  }
   useEffect(() => {
     getPlandata();
   })
@@ -124,9 +128,11 @@ const handleChange=(e)=>{
 
                   <input type="text" className="form-control"
 
-                    style={{ width: '175px',
-                    backgroundColor:'Window',
-                    marginLeft:'0.5rem' }}
+                    style={{
+                      width: '175px',
+                      backgroundColor: 'Window',
+                      marginLeft: '0.5rem'
+                    }}
                     value={plandata.plan.plan_name}
                     name="plan_name"
                     onChange={(e) => {
@@ -134,7 +140,7 @@ const handleChange=(e)=>{
                       // handleChange(e)
                       setPlandata({ plan_name: e.target.value })
                     }}
-                   />
+                  />
                 </div>
 
 
@@ -147,7 +153,7 @@ const handleChange=(e)=>{
                   variant="outlined"
 
                 />
-                
+
                 <TextField
                   required
                   id="outlined-required"
@@ -155,14 +161,14 @@ const handleChange=(e)=>{
                   value={plandata.plan.initial_payment}
                   variant="outlined"
                 />
-                  <TextField
+                <TextField
                   required
                   id="outlined-required"
                   helperText="initial payment"
                   value={plandata.plan.no_of_stages}
                   variant="outlined"
                 />
-<br></br>
+                <br></br>
                 <TextField
                   required
                   id="outlined-required"
@@ -176,8 +182,7 @@ const handleChange=(e)=>{
                 <br></br>
 
 
-                <button className='btn btn-info mr-2 text-white' onClick={() => 
-                  { update(plandata._id) }}>Update</button>
+                <button className='btn btn-info mr-2 text-white' onClick={() => { update(plandata._id) }}>Update</button>
                 <button className='btn btn-secondary'>Cancel</button>
               </form>
 

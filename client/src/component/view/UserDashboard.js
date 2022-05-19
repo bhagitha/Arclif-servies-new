@@ -18,7 +18,7 @@ function UserDashboard(props) {
   const [logindata, setLogindata] = useState({ login: [] })
   const [userPlan, setUserplan] = useState({ userplan: [] })
   const [planServices, setPlanservices] = useState([])
-  const [buildingdetails, setBuildingdetails] = useState('')
+  const [buildingdetails, setBuildingdetails] = useState([])
 
   const { id } = useParams();
 
@@ -45,10 +45,10 @@ function UserDashboard(props) {
         setPlanservices(res.data.details.plan_services)
       })
 
-    axios.post('http:localhost:8888/getbuildingdetails', { id: id })
+    axios.post('http://localhost:8888/getbuildingdetails', { id: id })
       .then((response) => {
-        setBuildingdetails(response.data.total_area)
-        console.log("buildingdetails :", response)
+        setBuildingdetails(response.data.details)
+        console.log("buildingdetails :", response.data.details)
       })
     // setPlanservices({services:userPlan.userplan.plan_services})
     // console.log("plan data", userPlan.userplan.plan_services)
@@ -178,6 +178,7 @@ function UserDashboard(props) {
                       </>)
                   })
                 }
+                <h6><label> total_area : {buildingdetails}</label></h6>
               </div>
               <div style={{ marginTop: '0', marginLeft: '1rem', borderRight: '1px solid #a3a3c2', width: '150px' }}>
 
