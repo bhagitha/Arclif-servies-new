@@ -22,7 +22,7 @@ function OtpVerify(props) {
 
 	const confirmOtp = () => {
 		axios
-			.post('http://localhost:8888/verifyOTP', {
+			.post('/api/verifyOTP', {
 				phonenumber: `${value.phone}`,
 				roletype:'Admin',
 				hash: `${value.hash}`,

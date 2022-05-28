@@ -12,7 +12,7 @@ function PhoneInput(props) {
 	const Continue = (e) => {
 		console.log(`Phone : ${value.phone}`)
 		axios
-			.post('http://localhost:8888/sendOTP', {
+			.post('/api/sendOTP', {
 				phonenumber: `${value.phone}`,
 				flag:'login'
 			})

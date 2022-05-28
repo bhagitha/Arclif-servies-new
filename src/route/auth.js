@@ -6,7 +6,8 @@ const path = require('path');
 const multer = require('multer');
 const fileupload = require('../model/fileupload');
 // const ab=require('../../client/public/assets')
-const Userfilestore = require('../model/userfilestore')
+const Adminfilestore = require('../model/adminfiles');
+const Userfilestore=require('../model/userfilestore');
 
 router.post('/sendOTP', auth.login);
 router.post('/verifyOTP', auth.verifyOTP);
@@ -89,8 +90,8 @@ router.post('/filedataupload/:id', (req, res) => {
             filename:req.body.filename,
             total_amount:req.body.total_amount,
         }
-        const userfilestoredata = Userfilestore(data)
-        userfilestoredata.save().then((response) => {
+        const adminfilestoredata = Adminfilestore(data)
+        adminfilestoredata.save().then((response) => {
             res.status(200).json({ msg: "file added", details: response })
 
         })
@@ -99,9 +100,9 @@ router.post('/filedataupload/:id', (req, res) => {
     }
 
 })
-router.post('/getfiles', (req, res) => {
+router.post('/getfiles/:id', (req, res) => {
     try {
-        if (req.body.id) {
+        if (req.params.id) {
             Userfilestore.find({ login_id: req.body.id })
                 .then((response) => {
                     res.send({ msg: 'added file data', response: response })
@@ -114,6 +115,20 @@ router.post('/getfiles', (req, res) => {
     }
 })
 
+router.post('/getfilesfromadmin', (req, res) => {
+    try {
+        if (req.body.id) {
+            Adminfilestore.find({ login_id: req.body.id })
+                .then((response) => {
+                    res.send({ msg: 'added file data', response: response })
+                })
+        } else {
+            res.send({ msg: 'error : id required !!' })
+        }
+    } catch (err) {
+        res.send(err)
+    }
+})
 
 // const upload = multer({
 //     storage: multer.diskStorage({

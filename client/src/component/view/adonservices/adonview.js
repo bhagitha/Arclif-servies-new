@@ -13,7 +13,7 @@ function Adonview() {
 
   const getAdondata = () => {
     axios
-      .get('http://localhost:8888/adonservices')
+      .get('/api/adonservices')
       .then((res) => {
         // console.log(res.data.details);
         setAdonlist({ adon: res.data.details })

@@ -14,7 +14,7 @@ function PlanView() {
 
     const getPlandata = () => {
         axios
-            .get('http://localhost:8888/viewplan')
+            .get('/api/viewplan')
             .then((res) => {
                 console.log(res.data.details);
                 setPlanlist({ plans: res.data.details })

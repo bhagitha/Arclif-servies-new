@@ -19,7 +19,7 @@ class Auth {
 		}
 		if (!accessToken && refreshToken) {
 			axios
-				.post('http://localhost:8888/refresh', {
+				.post('/api/refresh', {
 					withCredentials: true
 				})
 				.then(function(res) {

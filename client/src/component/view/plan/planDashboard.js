@@ -39,7 +39,7 @@ function PlanDashboard() {
     console.log('plan id :', id)
 
     axios
-      .get(`http://localhost:8888/viewsingleplan/${id}`)
+      .get(`/api/viewsingleplan/${id}`)
       .then((res) => {
         // console.log(res.data.details);
         // setPlandata({ plan_name: res.data.details.plan_name })
@@ -68,7 +68,7 @@ function PlanDashboard() {
 
   const logout = () => {
     axios
-      .get('http://localhost:8888/logout')
+      .get('/api/logout')
       .then((res) => {
         console.log(res.data);
       })

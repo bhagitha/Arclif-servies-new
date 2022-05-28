@@ -6,6 +6,7 @@
     top: 50px;
     color: rgba(1, 31, 65, 0.781);
     box-shadow: 1px 20px 15px #585757;
+    width: 200px;
   }
   
   ::-webkit-scrollbar {
@@ -21,6 +22,7 @@
   .sidebarWrapper {
     margin-top: .5rem;
     padding: 10px;
+  
   }
   
   .sidebarList {

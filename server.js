@@ -10,11 +10,12 @@ const app = express();
 app.use(express.json());
 dbconnect();
 
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: '*', credentials: true }));
+// app.use(cors());
 app.use(cookieParser());
 
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept, Authorization"
@@ -29,7 +30,7 @@ app.use((req, res, next) => {
 const authrouter=require('./src/route/auth');
 // const fileRoute = require('./src/route/file');
 
-app.use('/',authrouter)
+app.use('/api',authrouter)
 // app.use('/file',fileRoute)
 
 app.listen(process.env.PORT || 8888,()=>{

@@ -4,7 +4,7 @@ import styles from './styles/home.module.css';
 import Requirements from './requirements'
 import Sidebar from './sidebar'
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 function main() {
 	const [state, setState] = useState({
 		value: 'Private Protected Route - Home'
@@ -31,7 +31,7 @@ function main() {
 
 	const logout = () => {
 		axios
-			.get('http://localhost:8888/logout')
+			.get('/api/logout')
 			.then((res) => {
 				console.log(res.data);
 			})

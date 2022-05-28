@@ -42,7 +42,7 @@ const Fileuploadform = (props) => {
           console.log(`file  :${file},title :${title},description : ${description}`)
   console.log("formData : ",formData.entries)
           setErrorMsg('');
-         await  axios.post('http://localhost:8888/upload', formData, {
+         await  axios.post('/api/upload', formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }

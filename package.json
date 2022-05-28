@@ -1,17 +1,18 @@
 {
   "name": "arclif",
   "version": "1.0.0",
-  "description": "Passwordless Authentication of User in Node(express) and React using JWT and Twilio SMS API without and any database for validating OTP",
+  "description": "Passwordless Authentication of User in Node(express) and React using JWT and fast SMS API with mongodb",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "devStart": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "start-watch": "nodemon index.js",
+    "dev": "concurrently \"npm run start-watch\" \"cd client && npm start\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cloudinary": "^1.30.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",

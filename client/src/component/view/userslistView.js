@@ -13,7 +13,7 @@ function UserslistView() {
 
 	const logout = () => {
 		axios
-			.get('http://localhost:8888/logout')
+			.get('/api/logout')
 			.then((res) => {
 				console.log(res.data);
 			})

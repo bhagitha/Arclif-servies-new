@@ -23,7 +23,7 @@ export default class UploadFileComponent extends Component {
         for (const key of Object.keys(this.state.imgCollection)) {
             formData.append('imgCollection', this.state.imgCollection[key])
         }
-        axios.post("http://localhost:8888/upload-images", {formData:formData,login_id:this.state.login_id}, {
+        axios.post("/api/upload-images", {formData:formData,login_id:this.state.login_id}, {
         }).then(res => {
             console.log(res.data)
         })
