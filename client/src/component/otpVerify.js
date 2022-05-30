@@ -4,7 +4,8 @@ import axios from 'axios';
 import {useHistory} from  'react-router-dom';
 
 import { PhoneIphone } from "@material-ui/icons";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function OtpVerify(props) {
 	const history = useHistory();
@@ -31,13 +32,15 @@ function OtpVerify(props) {
 				withCredentials: true
 			})
 			.then(function(res) {
-				console.log(res.data);
-				if(res.data.roletype=='Admin')
+				console.log("data user :",res.data.data[0].data[0]);
+				console.log("roletype user :",res.data.data[0].data[0].roletype);
+				if(res.data.data[0].data[0].roletype=='Admin')
 				{
 				// window.location.reload();
 history.push('/home')
 				}else{
-					history.push('/home')
+					// history.push('/home')
+					toast.success('Admin not found !!')
 				}
 			})
 			.catch(function(error) {
@@ -73,6 +76,9 @@ history.push('/home')
 					
 				</div>
 			</div>
+			<div className="form-group">
+        <ToastContainer />
+      </div>
 		</div>
 	);
 }

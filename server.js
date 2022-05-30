@@ -33,6 +33,10 @@ const authrouter=require('./src/route/auth');
 app.use('/api',authrouter)
 // app.use('/file',fileRoute)
 
+app.get('/',(req,res)=>{
+  res.send("welcome")
+})
+
 app.listen(process.env.PORT || 8888,()=>{
 	console.log(`server started at ${process.env.PORT} `);
 });

@@ -5,7 +5,9 @@ import styles from '../../styles/home.module.css';
 import Sidebar from '../../sidebar';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-
+import {
+  PersonPin, Edit, Delete, Add
+} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -103,7 +105,10 @@ function PlanDashboard() {
         </div>
 
         <div style={{ marginLeft: "3rem", marginTop: '1rem', marginBottom: '2rem', width: '100%' }}>
-
+          {/* add stages  */}
+          <button
+            className={styles.addbutton}>
+            <Add /> Stage</button>
           <div style={{ width: '100%', display: 'flex' }}>
             {/* <div style={{
               height: '150px',
@@ -122,6 +127,9 @@ function PlanDashboard() {
               width: '800px', borderRadius: '20px',
               boxShadow: '5px 2px 10px #030333', marginBottom: '2rem'
             }}>
+
+
+
 
               <form className={classes.root}>
                 <div className="form-group">

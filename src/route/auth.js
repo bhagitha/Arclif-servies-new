@@ -30,6 +30,7 @@ router.delete('/deleteadonservices/:id', controller.deleteAdonServiceData)
 //create user
 router.post('/createuser', controller.createuser)
 router.get('/viewuser', controller.viewuser)
+router.get('/viewlogin', controller.viewlogin)
 router.put('/updateuser/:id', controller.updateuser)
 router.delete('/deleteuser', controller.deleteUser)
 router.get('/viewsingleuser/:id', controller.viewsingleuser)
@@ -51,7 +52,7 @@ router.post('/getuserAdon', controller.getuseradon)
 router.post('/addbuildingdetails', controller.addBuildingDetails)
 //get building details for user
 router.post('/getbuildingdetails', controller.getBuildingDetails)
-
+router.get('/getrate', controller.getRate)
 
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {

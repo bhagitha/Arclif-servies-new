@@ -154,6 +154,7 @@ const deleteAdonServiceData = (req, res) => {
 }
 //create user
 const createuser = (req, res) => {
+
     try {
         console.log(req.body)
         const loginid = req.body.login_id;
@@ -175,6 +176,19 @@ const createuser = (req, res) => {
                 console.error(err);
                 res.json({ msg: `error : !! ${err}`, })
             })
+    } catch (err) {
+        res.send(err)
+    }
+}
+const viewlogin =(req,res)=>{
+try {
+        Logindata.find().then((response) => {
+            console.log(response);
+            res.status(200).json({ msg: "success", details: response })
+        }).catch((err) => {
+            console.error(err);
+            res.json({ msg: `error : ${err}`, })
+        })
     } catch (err) {
         res.send(err)
     }
@@ -536,7 +550,21 @@ const getuseradon = (req, res) => {
     }
 }
 
+const getRate= (req, res) => {
+    const stage=req.body.stages;
+    try {
+        PaymentPlanData.find().then((response) => {
+            // console.log(response);
+            res.status(200).json({ msg: "success", details: response })
+        }).catch((err) => {
+            console.error(err);
+            res.json({ msg: `error : ${err}`, })
+        })
+    } catch (err) {
+        res.send(err)
+    }
 
+}
 
 module.exports = {
     createPlan,
@@ -555,7 +583,8 @@ module.exports = {
     viewsingleuser,
     updateuser,
     deleteUser,
-
+    viewlogin,
+   
     setuserrequirements,
 
     addBuildingDetails,
@@ -569,6 +598,6 @@ module.exports = {
     choosePlan,//save user plan
     getuserplan,//get user plan
     chooseAdon,//save user adon 
-    getuseradon//get user adon services
-
+    getuseradon,//get user adon services
+ getRate,
 }
