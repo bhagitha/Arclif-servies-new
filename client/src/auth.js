@@ -8,7 +8,7 @@ class Auth {
 		this.authenticated = false;
 	}
 
-	isAuthenticated() {
+	isAuthenticated() {   
 		const accessToken = cookies.get('authSession');
 		const refreshToken = cookies.get('refreshTokenID');
 		if (!accessToken && !refreshToken) {

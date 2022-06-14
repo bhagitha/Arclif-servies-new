@@ -21,6 +21,7 @@ import Adonlistview from './component/view/adonservices/adonlistview'
 import UploadFileComponent from './component/add/UploadFileComponent'
 import FileuploadComponent from './component/add/FileuploadComponent'
 import RegistereduserView from './component/view/RegistereduserView'
+import Adstages from './component/add/adstages';
 // import './styles.scss';
 
 ReactDOM.render(
@@ -59,6 +60,9 @@ ReactDOM.render(
         </Route>
         <Route exact path='/registereduser'>
           <RegistereduserView/>
+        </Route>
+        <Route exact path='/stages/:id'>
+          <Adstages/>
         </Route>
       </Switch>
     </BrowserRouter>

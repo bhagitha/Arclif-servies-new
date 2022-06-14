@@ -1,90 +1,103 @@
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-*{
+
+* {
     padding: 0;
     margin: 0;
-    
+
 }
 
-.background{
-   
+.background {
+
     height: 100vh;
     width: 100%;
-    background-image: url('../../img/photo-1483366774565-c783b9f70e2c.jpg');
-    /* background-position: right; */
+    background-image: url('../../img/backgroundpic.jpg');
+    background-position: right;
     background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-blend-mode:darken;
+    /* background-size: 100% 100%; */
+    background-blend-mode: darken;
     /* background-size: 65rem; */
-    /* background-image: linear-gradient(135deg, #ffffff, #f1b69a,#f0a16d); */
+    /* background-image: linear-gradient(135deg, #ffffff, #f1b69a,#e7b695); */
     display: grid;
     place-items: center;
 }
 
-.container{
+.container {
     height: 300px;
     width: 450px;
     /* background-image: linear-gradient(135deg, #1e88e5, #0d47a1); */
     background-color: #f7f7f7de;
     border-radius: 15px;
-    box-shadow: 1px 2px 15px #af8585;
+    box-shadow: 1px 2px 15px #ccb3b3;
     border-top-left-radius: 60px;
     border-bottom-right-radius: 60px;
-   
+
 }
 
-.heading{
+.heading {
     font-family: 'Staatliches', cursive;
     text-align: center;
     /* color:  #048573; */
-        /* background-image: linear-gradient(135deg, #1e88e5, #0d47a1); */
+    /* background-image: linear-gradient(135deg, #1e88e5, #0d47a1); */
     font-size: 3rem;
     margin-top: 1rem;
     /* text-shadow: 2px 2px #535252; */
- 
-    background: -webkit-linear-gradient(40deg,rgb(2, 126, 95),#04524b, #023c5e);
+
+    background: -webkit-linear-gradient(40deg,  #5fa7eb, #25476A);
     -webkit-background-clip: text;
-   
+
     -webkit-text-fill-color: transparent;
 }
-.input_container{
+
+.input_container {
     display: flex;
     /* place-items:center; */
-   padding: 2px;
+    padding: 2px;
     font-size: 1rem;
-    width:98%;
+    width: 98%;
     /* border: 1px solid blue; */
 }
 
-.countrycode{
+.countrycode {
     font-family: 'Open Sans', sans-serif;
     font-size: 1rem;
     margin-top: 0.5rem;
-    width:95px;
-    font-size:12px;
+    width: 95px;
+    font-size: 12px;
     box-shadow: inset 0 1px 3px rgba(54, 54, 54, 0.5);
-border:none;
-border-radius: 5px;
+    border: none;
+    border-radius: 5px;
 
     /* box-shadow: 1px 2px 15px #817f7f; */
-    
+
 }
-.input_text{
+
+.input_text {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 1rem;
     margin-top: 3rem;
     /* margin-left: 17px; */
-    
+
 }
-.input_textw{
+
+.input_text_otp {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1rem;
+    margin-top: 3rem;
+    margin-left: 17px;
+
+}
+
+.input_textw {
     font-family: 'Open Sans', sans-serif;
-    font-size:large;
+    font-size: large;
     margin-top: 1rem;
     margin-left: 17px;
-    
+
 }
-.input{
+
+.input {
     width: 95%;
     height: 35px;
     font-size: 1.1rem;
@@ -96,12 +109,10 @@ border-radius: 5px;
     background-color: none;
     padding-left: 10px;
     padding-right: 10px;
-    float:right;
-    border:none;
+    float: right;
+    border: none;
 
     box-shadow: inset 0 1px 3px rgba(59, 59, 59, 0.5)
-
-   
 }
 
 .submit {
@@ -110,7 +121,7 @@ border-radius: 5px;
     box-shadow: 1px 2px 15px #a7a5a5;
     /* background-color: #0a7066; */
     /* background: -webkit-linear-gradient(50deg,rgb(2, 126, 95),#01443e, #023c5e); */
-    background: -webkit-linear-gradient(40deg,rgb(2, 126, 95),#04524b, #023c5e);
+    background: -webkit-linear-gradient(40deg,  #5fa7eb, #25476A);
 
     height: 40px;
     width: 130px;
@@ -123,9 +134,10 @@ border-radius: 5px;
     outline: none;
     cursor: pointer;
 }
+
 .back {
     margin-left: 17px;
-    background-color: rgb(0, 247, 255);
+    background-color: #FE979C;
     height: 40px;
     width: 100px;
     margin-top: 1rem;
@@ -137,16 +149,18 @@ border-radius: 5px;
     outline: none;
     cursor: pointer;
 }
-.submit:hover{
+
+.submit:hover {
     background-color: #1976d2;
 }
 
-.error{
+.error {
     color: red;
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
 }
-.success{
+
+.success {
     color: green;
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './styles/style.module.css';
 import axios from 'axios';
-import {useHistory} from  'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { PhoneIphone } from "@material-ui/icons";
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,7 +11,7 @@ function OtpVerify(props) {
 	const history = useHistory();
 	axios.defaults.withCredentials = true;
 
-	const [ error, setError ] = useState({
+	const [error, setError] = useState({
 		error: '',
 		success: ''
 	});
@@ -25,26 +25,28 @@ function OtpVerify(props) {
 		axios
 			.post('/api/verifyOTP', {
 				phonenumber: `${value.phone}`,
-				roletype:'Admin',
+				roletype: 'Admin',
 				hash: `${value.hash}`,
 				otp: `${value.otp}`,
-				msg:'Admin verify',
+				msg: 'Admin verify',
 				withCredentials: true
 			})
-			.then(function(res) {
-				console.log("data user :",res.data.data[0].data[0]);
-				console.log("roletype user :",res.data.data[0].data[0].roletype);
-				if(res.data.data[0].data[0].roletype=='Admin')
-				{
-				// window.location.reload();
-history.push('/home')
-				}else{
+			.then(function (res) {
+				console.log("res :",res)
+				// const hash = res.data.hash;
+				// hashHandleChange(hash);
+				// console.log("data user :", res.data.data[0].data[0]);
+				// console.log("roletype user :", res.data.data[0].data[0].roletype);
+				if (res.data.data[0].data[0].roletype == 'Admin') {
+					// window.location.reload();
+					history.push('/home')
+				} else {
 					// history.push('/home')
 					toast.success('Admin not found !!')
 				}
 			})
-			.catch(function(error) {
-				console.log(error.response.data);
+			.catch(function (error) {
+				console.log("error :",error);
 				setError({ ...error, error: error.response.data.msg });
 			});
 	};
@@ -55,9 +57,9 @@ history.push('/home')
 					<div className={styles.heading}>Otp verify</div>
 					<div className={styles.error}>{error.error}</div>
 					<div className={styles.success}>{error.success}</div>
-					<div className={styles.input_text}> Enter One Time Password:</div>
+					<div className={styles.input_text_otp}> </div>
 					<div className={styles.input_container}>
-		<PhoneIphone style={{color:'teal',  marginTop: '0.5rem',width: "10%",fontSize:"32px",marginLeft:10 }}/>
+						<PhoneIphone style={{ color: 'teal', marginTop: '0.5rem', width: "10%", fontSize: "32px", marginLeft: 10 }} />
 
 						<input
 							type="tel"
@@ -73,12 +75,12 @@ history.push('/home')
 					<button onClick={confirmOtp} className={styles.submit}>
 						Confirm OTP
 					</button>
-					
+
 				</div>
 			</div>
 			<div className="form-group">
-        <ToastContainer />
-      </div>
+				<ToastContainer />
+			</div>
 		</div>
 	);
 }

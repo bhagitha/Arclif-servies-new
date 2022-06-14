@@ -64,7 +64,7 @@ export default function Sidebar() {
           </li><hr></hr>
         </ul>
         <button className="sidebarButton" 
-        style={{ background: '-webkit-linear-gradient(40deg,rgb(2, 126, 95),#04524b, #023c5e)'
+        style={{color:'ButtonFace', background: '-webkit-linear-gradient(40deg,rgb(2, 126, 95),#04524b, #023c5e)'
 }}>Show More</button>
       
       

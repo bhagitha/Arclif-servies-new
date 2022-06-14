@@ -13,275 +13,314 @@ import {
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Cookies from 'universal-cookie';
+import App from '../../App';
+
+const cookies = new Cookies();
 
 function UserDashboard(props) {
-  const history = useHistory()
-  const [userdata, setUserdata] = useState({ user: [] });
-  const [logindata, setLogindata] = useState({ login: [] })
-  const [userPlan, setUserplan] = useState({ userplan: [] })
-  const [planServices, setPlanservices] = useState([])
-  const [buildingdetails, setBuildingdetails] = useState([])
 
-  const { id } = useParams();
+  const accessToken = cookies.get('authSession');
+  console.log("accessToken :", accessToken);
 
-  const getUserdata = () => {
+  function UserisLoggedin() {
 
-    axios
-      .get(`/api/viewsingleuser/${id}`)
-      .then((res) => {
-        // console.log(res.data.details);
-        if (res.data.userdetails) {
-          setUserdata({ user: res.data.userdetails })
-          setLogindata({ login: res.data.logindetails })
-          // console.log("userlist :", userdata);
-          // console.log("loginlist :", logindata);
-        } else {
-          toast.success('no user found !!')
-        }
+    const history = useHistory();
+    const [userdata, setUserdata] = useState({ user: [] });
+    const [logindata, setLogindata] = useState({ login: [] })
+    const [userPlan, setUserplan] = useState({ userplan: [] })
+    const [planServices, setPlanservices] = useState([])
+    const [buildingdetails, setBuildingdetails] = useState([])
+    const [requirementslist, setRequirementsList] = useState([])
 
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
+    const { id } = useParams();
+    axios.defaults.withCredentials = true;
 
-    axios.post('/api/getuserplan', { login_id: id })
-      .then((res) => {
-        console.log("res : ",res);
-        if (res.data.details) {
-          setUserplan({ userplan: res.data.details })
-          setPlanservices(res.data.details.plan_services)
-        } else {
-          toast.success('no plan found !!')
-        }
-      })
+    // if(auth.isAuthenticated){
+    const getUserdata = () => {
 
-    axios.post('/api/getbuildingdetails', { id: id })
-      .then((response) => {
-        if (response.data.details) {
-          setBuildingdetails(response.data.details)
-          console.log("buildingdetails :", response.data.details)
-        } else {
-          toast.success('no building details found !!')
-        }
-      })
-    // setPlanservices({services:userPlan.userplan.plan_services})
-    // console.log("plan data", userPlan.userplan.plan_services)
-  }
+      axios
+        .get(`/api/viewsingleuser/${id}`, { withCredentials: true })
+        .then((res) => {
+          // console.log(res.data.details);
+          if (res.data.userdetails) {
+            setUserdata({ user: res.data.userdetails })
+            setLogindata({ login: res.data.logindetails })
+            // console.log("userlist :", userdata);
+            // console.log("loginlist :", logindata);
+          } else {
+            toast.success('no user found !!')
+          }
 
-  useEffect(() => {
-    getUserdata();
-  }, [])
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
 
-  const logout = () => {
-    axios
-      .get('/api/logout')
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-    window.location.reload();
-  };
-  const upload = () => {
-    // history.push(/uploadfile')
-  }
+      axios.post('/api/getuserplan', { login_id: id })
+        .then((res) => {
+          console.log("res : ", res);
+          if (res.data.details) {
+            setUserplan({ userplan: res.data.details })
+            setPlanservices(res.data.details.plan_services)
+          } else {
+            toast.success('no plan found !!')
+          }
+        })
 
-  return (
+      axios.post('/api/getbuildingdetails', { id: id })
+        .then((response) => {
+          if (response.data.details) {
+            setBuildingdetails(response.data.details)
+            console.log("buildingdetails :", response.data.details)
+          } else {
+            toast.success('no building details found !!')
+          }
+        })
+      // setPlanservices({services:userPlan.userplan.plan_services})
+      // console.log("plan data", userPlan.userplan.plan_services)
 
-    <div className={styles}>
-      <div className={styles.top}>
-        <p >AGRIHA</p>
+      axios.post('/api/getrequirementslist', { login_id: id })
+        .then((response) => {
+          console.log("requirements list : ", response.data.details)
 
-        <h3 style={{ marginTop: '1rem', float: "left" }}>User Profile </h3>
+          if (response.data.details.requirements_list.length != 0) {
+            setRequirementsList(response.data.details.requirements_list)
+            console.log("requirements list :", response.data.details.requirements_list)
+          } else {
+            toast.success('no requirements details found !!')
+          }
+        })
 
-        <button onClick={logout} className={styles.logout}>
-          Log out
-        </button>
+    }
 
-      </div>
+    useEffect(() => {
+      getUserdata();
+    }, [])
 
-      <div className={styles.bottom}>
-        <div style={{ width: '180px' }} >
+    const logout = () => {
+      axios
+        .get('/api/logout')
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+      window.location.reload();
+    };
+    const upload = () => {
+      // history.push(/uploadfile')
+    }
+    // }else{
+    // history.push('/')
+    // }
+    return (
 
-          <Sidebar></Sidebar>
+      <div className={styles}>
+        <div className={styles.top}>
+          <p >AGRIHA</p>
+
+          <h3 style={{ marginTop: '3rem', float: "left" }}>User Profile </h3>
+
+          <button onClick={logout} className={styles.logout}>
+            Log out
+          </button>
 
         </div>
 
-        <div style={{
-          marginLeft: "3rem", marginTop: '1rem',
-          marginBottom: '2rem', width: '100%'
-        }}>
+        <div className={styles.bottom}>
+          <div style={{ width: '180px' }} >
 
-          <div style={{ width: '100%' }}>
-            <div style={{ display: 'flex' }}>
+            <Sidebar></Sidebar>
+
+          </div>
+
+          <div style={{
+            marginLeft: "3rem", marginTop: '1rem',
+            marginBottom: '2rem', width: '100%'
+          }}>
+
+            <div style={{ width: '100%' }}>
+              <div style={{ display: 'flex' }}>
+
+                <div style={{
+                  height: '200px',
+                  width: '200px', borderRadius: '20px',
+                  marginBottom: '2rem'
+                }}>
+
+                  <img style={{
+                    boxShadow: '1px 2px 10px #a3a3c2',
+                    borderRadius: '50px',
+                    height: '80px', margin: '1rem',
+                    width: '80px'
+                  }} src="/assets/person/avatar-png-11554021661asazhxmdnu.png" />
+
+                  <h5 style={{ marginLeft: '1rem' }}>
+                    {
+                      userdata.user.map((u, i) => {
+                        return (
+                          <>
+                            <PersonPin />   <label>{u.uname}</label>
+                          </>)
+                      })
+                    }
+                  </h5>
+                  <h5 style={{ marginLeft: '1rem' }}>
+                    {
+                      // console.log(userdata.user)
+                      logindata.login.map((u, i) => {
+                        return (<> <Edit /><label>{u.phonenumber}</label></>)
+                      })
+
+                    }
+                  </h5>
+
+                </div>
+                <div style={{ marginLeft: "3rem", display: 'flex' }}>
+
+                  <div style={{ display: 'flex' }}>
+                    <div style={{ marginRight: "5rem", marginTop: "3rem" }}>
+                      {
+                        userdata.user.map((u, i) => {
+                          return (
+                            <>
+                              <label>{u.housename}</label><br></br>
+                              <label>{u.Place}</label><br></br>
+                              <label>{u.Pincode}</label><br></br>
+                              <label>{u.country}</label>
+                            </>)
+                        })
+                      }
+                    </div>
+                    <Card style={{
+                      width: '20rem', borderRadius: '20px', height: 'max-content', backgroundColor: '#f2f2f2',
+                      boxShadow: '1px 2px 10px rgb(221 221 221)',
+                      marginTop: '2rem'
+                    }}>
+
+                      <Card.Body>
+                        <Card.Title>upload documents</Card.Title>
+                        <Card.Text>
+                          click below to insert documents
+                        </Card.Text>
+                        { }
+                        <Link to={`/uploadfile/${id}`}>
+                          <Button variant="primary">UPLOAD HERE</Button></Link>
+                      </Card.Body>
+                    </Card>
+                  </div>
+
+                </div>
+              </div>
 
               <div style={{
-                height: '200px',
-                width: '250px', borderRadius: '20px',
+                height: 'fit-content', padding: '1rem',
+                width: '750px', borderRadius: '20px',
                 boxShadow: '1px 2px 10px #a3a3c2', marginBottom: '2rem'
               }}>
 
-                <img style={{
-                  boxShadow: '1px 2px 10px #a3a3c2',
-                  borderRadius: '50px',
-                  height: '80px', margin: '1rem',
-                  width: '80px'
-                }} src="/assets/person/avatar-png-11554021661asazhxmdnu.png" />
+                <h5 style={{ margin: '.3rem' }}>  Details   </h5>
+                <hr></hr>
 
-                <h5 style={{ marginLeft: '1rem' }}>
-                  {
-                    userdata.user.map((u, i) => {
+                <div style={{
+                  display: 'flex'
+                }}>
+
+                  <div style={{ marginTop: '0', marginLeft: '1rem', borderRight: '1px solid #a3a3c2', width: '150px' }}>
+                    {/* {
+                      userdata.user.map((u, i) => {
+                        return (
+                          <>
+                            <label>{u.housename}</label><br></br>
+                            <label>{u.Place}</label><br></br>
+                            <label>{u.Pincode}</label><br></br>
+                            <label>{u.country}</label>
+                          </>)
+                      })
+                    } */}
+                    <div>
+
+                      {(buildingdetails) ?
+                        buildingdetails.map((u, i) => {
+                          return (
+                            <ul key={i} style={{ listStyleType: 'none' }}>
+                              <li > <strong>Floors - </strong>{u.no_of_floors} </li>
+
+                              <li > <strong>Area - </strong>{u.total_area} </li>
+                              <li ><strong> Bedrooms - </strong>{u.no_of_bedrooms} </li>
+                              <li ><strong> Attached bathrooms </strong>{u.attached_bathrooms} </li>
+                              <hr></hr> <li ><strong> Design type </strong>{u.design_type} </li>
+                              <hr></hr><li > <strong>Total budget </strong>{u.total_budget} </li>
+
+                            </ul>
+                          )
+                        }) : "no data found"
+                      }
+                    </div>
+
+                  </div>
+
+                  <div style={{ marginTop: '0', marginLeft: '1rem', borderRight: '1px solid #a3a3c2', width: '150px' }}>
+                    <h5>Requirements </h5>
+                    <hr></hr>
+                    {(requirementslist) ? requirementslist.map((u, i) => {
                       return (
                         <>
-                          <PersonPin />   <label>{u.uname}</label>
-                        </>)
-                    })
-                  }
-                </h5>
-                <h5 style={{ marginLeft: '1rem' }}>
-                  {
-                    // console.log(userdata.user)
-                    logindata.login.map((u, i) => {
-                      return (<> <Edit /><label>{u.phonenumber}</label></>)
-                    })
-
-                  }
-                </h5>
-              </div>
-              <div style={{ marginLeft: "3rem", display: 'flex' }}>
-                <div>
-
-                  <Card style={{
-                    width: '20rem', borderRadius: '20px', height: '200px', backgroundColor: '#f2f2f2',
-                    boxShadow: '1px 2px 10px #a3a3c2'
-                  }}>
-
-                    <Card.Body>
-                      <Card.Title>STAGE</Card.Title>
-                      <Card.Text>
-                        click below to insert documents
-                      </Card.Text>
-                      {}
-                      <Link to={`/uploadfile/${id}`}>
-                        <Button variant="info">UPLOAD HERE</Button></Link>
-                    </Card.Body>
-                  </Card>
-                </div>
-
-              </div>
-            </div>
-
-            <div style={{
-              height: 'fit-content', padding: '1rem',
-              width: '600px', borderRadius: '20px',
-              boxShadow: '1px 2px 10px #a3a3c2', marginBottom: '2rem'
-            }}>
-
-              <h5 style={{ margin: '.3rem' }}>  Details   </h5>
-              <hr></hr>
-
-              <div style={{
-                display: 'flex'
-              }}>
-
-                <div style={{ marginTop: '0', marginLeft: '1rem', borderRight: '1px solid #a3a3c2', width: '150px' }}>
-                  {
-                    userdata.user.map((u, i) => {
-                      return (
-                        <>
-                          <label>{u.housename}</label><br></br>
-                          <label>{u.Place}</label><br></br>
-                          <label>{u.Pincode}</label><br></br>
-                          <label>{u.country}</label>
-                        </>)
-                    })
-                  }
-                  <h6>{(buildingdetails) ?
-                    buildingdetails.map((u, i) => {
-                      return (
-                        <div key={i}><label > total_area :{u.total_area} </label>
-
-                        </div>
+                          <input type="checkbox" />
+                          <label>{u}</label>
+                          <br></br>
+                        </>
                       )
-                    }): "no data found"
-                  }
-                  </h6>
+                    }) : <label>no data found</label>}
+                  </div>
 
-                </div>
-                <div style={{ marginTop: '0', marginLeft: '1rem', borderRight: '1px solid #a3a3c2', width: '150px' }}>
-                  
-                  <h6>{(userPlan.userplan)?userPlan.userplan.plan_name:"no data found!!"}</h6>
-                  <h6>{(userPlan.userplan)?userPlan.userplan.plan_amount:"no data found"}</h6>
-                  <h6>{(userPlan.userplan)?userPlan.userplan.initial_payment:"no data found"}</h6>
+                  <div style={{ marginTop: '0', marginLeft: '1rem', borderRight: '1px solid #a3a3c2', width: '150px' }}>
+                    <h5>Plan</h5>
+                    <hr></hr>
+                    <h6>{(userPlan.userplan) ? userPlan.userplan.plan_name : "no data found!!"}</h6>
+                    <h6>{(userPlan.userplan) ? userPlan.userplan.plan_amount : "no data found"}</h6>
+                    <h6>{(userPlan.userplan) ? userPlan.userplan.initial_payment : "no data found"}</h6>
 
-                </div>
-                <div style={{ marginTop: '0', marginLeft: '1rem' }}>
-                  {(planServices)?planServices.map((u, i) => {
-                    return (
-                      <>
-                        <input type="checkbox" />
-                        <label>{u}</label>
-                        <br></br>
-                      </>
-                    )
-                  }): <label>no data found</label>}
-                </div>
-                <div>
-                </div>
+                  </div>
+                  <div style={{ marginTop: '0', marginLeft: '1rem' }}>
+                    <h5>Services </h5>
+                    <hr></hr>
+                    {(planServices) ? planServices.map((u, i) => {
+                      return (
+                        <>
+                          <input type="checkbox" />
+                          <label>{u}</label>
+                          <br></br>
+                        </>
+                      )
+                    }) : <label>no data found</label>}
+                  </div>
+                  <div>
+                  </div>
 
+                  <div>
 
-                <div>
-
-                  {/* <h6>Plan choosen</h6>
-            <hr></hr>
-            <h6>{userPlan.userplan.plan_name}</h6>
-            <h6>{userPlan.userplan.plan_amount}</h6>
-            <h6>{userPlan.userplan.initial_payment}</h6> */}
-
-
-                  {/* {userPlan.userplan.plan_services}
-            {console.log(userPlan.userplan.plan_services)} */}
+                  </div>
 
                 </div>
 
-              </div>
+              </div></div>
+          </div>
 
-
-
-
-              {/* <Link to={`/uploadfile/${u}/${id}`}> Stage1</Link>   */}
-              {/* <div className="container">
-                <div className="row">
-                    <form>
-                        <div className="form-group">
-                            <input type="file" name="imgCollection" onChange={(e)=>{console.log(e.target)}}  />
-                        </div>
-                        <div className="form-group">
-                            <button className="btn btn-primary" type="submit">Upload</button>
-                        </div>
-                    </form>
-                </div>
-            </div> */}
-
-              {/* <UploadFileComponent id={id}/> */}
-              {/* <Fileuploadform /> */}
-              {/* <UserProfile userProfileData/> */}
-
-
-            </div></div>
         </div>
 
-
+        <div className="form-group">
+          <ToastContainer />
+        </div>
 
       </div>
-
-      <div className="form-group">
-        <ToastContainer />
-      </div>
-
-    </div>
-  )
+    )
+  }
+  return (accessToken) ? <UserisLoggedin /> : <App />
 }
 
+
 export default UserDashboard
+

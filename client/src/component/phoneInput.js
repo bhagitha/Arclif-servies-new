@@ -58,6 +58,7 @@ function PhoneInput(props) {
 								className={styles.input}
 							/>
 						</div>
+						<label></label>
 					</div>
 					<button onClick={Continue} className={styles.submit}>
 						Send OTP

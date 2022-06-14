@@ -12,9 +12,9 @@
     padding-left: 12vh;
     font-family: 'Staatliches', cursive;
     text-align: center;
-    color: #d3d2ca;
+    color: #c7f3e8d5;
     /* background-color: #03440e; */
-    background: -webkit-linear-gradient(40deg, rgb(2, 126, 95), #04524b, #023c5e);
+    background: -webkit-linear-gradient(40deg, #2c9156, #03796f, #023c5e);
 
     font-size: 3rem;
     display: flex;
@@ -38,7 +38,7 @@
     margin-left: 3rem;
     margin-bottom: 1rem;
     color: #d3d2ca;
-    background: -webkit-linear-gradient(40deg, rgb(2, 126, 95), #04524b, #023c5e);
+    background: -webkit-linear-gradient(40deg, #2c9156, #04524b, #023c5e);
     border: none;
     padding: 1px;
     box-shadow: 5px 2px 10px #4d4c4c;
@@ -59,7 +59,7 @@ table {
 }
 
 .tableview {
-    background: -webkit-linear-gradient(40deg, rgb(2, 126, 95), #04524b, #023c5e);
+    background: -webkit-linear-gradient(40deg, #2c9156, #04524b, #023c5e);
     color: #d3d2ca;
     width: 250px;
     border-radius: 5px;
@@ -102,3 +102,4 @@ table {
     color: white;
     font-size: 2rem;
 }
+

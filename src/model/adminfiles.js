@@ -8,6 +8,7 @@ const AdminFileStoreSchema = new Schema({
     stage_Description:{type:String},
     filename: { type:String},
     total_amount:{type:Number},
+    file_name:{type:String}
 
 })
 

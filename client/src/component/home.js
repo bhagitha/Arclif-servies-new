@@ -5,9 +5,18 @@ import Requirements from './requirements'
 import Sidebar from './sidebar'
 import {Link} from 'react-router-dom'
 import Userdashboard from './view/UserDashboard'
+import Cookies from 'universal-cookie';
+import App from '../App';
+
+const cookies = new Cookies();
 
 axios.defaults.withCredentials = true;
+
 function Home() {
+	const accessToken = cookies.get('authSession');
+	console.log("accessToken :", accessToken);
+
+	function UserisLoggedin() {
 	const [state, setState] = useState({
 		value: 'Private Protected Route - Home'
 	});
@@ -58,15 +67,12 @@ function Home() {
 				
 				</div>	
 			
-				{/* <Userdashboard/> */}
-				{/* <Link to='/userdashboard'> User Dashboard</Link> */}
-				{/* <Requirements/> */}
-				{/* <div className={styles.card} />
-				<div className={styles.words}> {state.value}</div> */}
 			</div>
 			
 		</div>
 	);
+}
+return (accessToken) ? <UserisLoggedin /> : <App />
 }
 
 export default Home;

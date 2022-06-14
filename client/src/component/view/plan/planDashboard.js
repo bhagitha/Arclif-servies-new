@@ -8,6 +8,13 @@ import TextField from '@material-ui/core/TextField';
 import {
   PersonPin, Edit, Delete, Add
 } from "@material-ui/icons";
+import { Link } from 'react-router-dom';
+
+import Cookies from 'universal-cookie';
+import App from '../../../App';
+
+const cookies = new Cookies();
+axios.defaults.withCredentials = true;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,195 +27,220 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function PlanDashboard() {
+  const accessToken = cookies.get('authSession');
+  console.log("accessToken :", accessToken);
 
-  const [plandata, setPlandata] = useState({
-    plan: "",
-    plan_name: '',
-    plan_amount: '',
-    plan_services: [],
-    initial_payment: '',
-    stages: []
-  });
-  const { id } = useParams();
-  // const [plan, setPlan] = useState({
-  //   plan_name: '',
-  //   plan_amount: '',
-  //   plan_services: [],
-  //   initial_payment: ''
+  function PlanviewisLoggedin() {
 
-  // })
-  const getPlandata = () => {
-    console.log('plan id :', id)
+    const [plandata, setPlandata] = useState({
+      plan: "",
+      plan_name: '',
+      plan_amount: '',
+      plan_services: [],
+      stages: [],
+      stage_price: [],
+      initial_payment: '',
+      stages: []
+    });
+    const [stages, setStages] = useState([]);
+    const [stageprice, setStageprice] = useState([]);
 
-    axios
-      .get(`/api/viewsingleplan/${id}`)
-      .then((res) => {
-        // console.log(res.data.details);
-        // setPlandata({ plan_name: res.data.details.plan_name })
-        setPlandata({ plan: res.data.details })
-        // plandata.plan.forEach(element => {
-        //    setPlandata({stages: element})
-        // });
+    const { id } = useParams();
+    // const [plan, setPlan] = useState({
+    //   plan_name: '',
+    //   plan_amount: '',
+    //   plan_services: [],
+    //   initial_payment: ''
+
+    // })
+    const getPlandata = () => {
+      console.log('plan id :', id)
+
+      axios
+        .get(`/api/viewsingleplan/${id}`, { withCredentials: true },)
+        .then((res) => {
+          // console.log(res.data.details.stages);
+          // setPlandata({ plan_name: res.data.details.plan_name })
+          setPlandata({ plan: res.data.details })
+          setStages(res.data.details.stages)
+          setStageprice(res.data.details.stage_price)
+          // setPlandata({stage_price: res.data.details.stage_price})
+          // plandata.plan.forEach(element => {
+          //    setPlandata({stages: element})
+          // });
 
 
-        console.log("single plan :", plandata);
+          // console.log("single plan :", plandata);
 
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-  }
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    }
 
 
-  const handleChange = (e) => {
-    // setPlandata({...state,[e.target.name]:value})
+    const handleChange = (e) => {
+      // setPlandata({...state,[e.target.name]:value})
 
-  }
-  useEffect(() => {
-    getPlandata();
-  })
+    }
+    useEffect(() => {
+      getPlandata();
+    })
 
-  const logout = () => {
-    axios
-      .get('/api/logout')
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-    window.location.reload();
-  };
-  const update = (id) => {
-    console.log("id :", id)
-  }
-  const classes = useStyles();
+    const logout = () => {
+      axios
+        .get('/api/logout')
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+      window.location.reload();
+    };
+    const update = (id) => {
+      console.log("id :", id)
+    }
+    const classes = useStyles();
 
-  return (
-    <div className={styles}>
-      <div className={styles.top}>
-        <p >AGRIHA</p>
+    return (
+      <div className={styles}>
+        <div className={styles.top}>
+          <p >AGRIHA</p>
 
-        <h3 style={{ marginTop: '1rem', float: "left" }}>Plan </h3>
+          <h3 style={{ marginTop: '3rem', float: "left" }}>Plan </h3>
 
-        <button onClick={logout} className={styles.logout}>
-          Log out
-        </button>
-
-      </div>
-
-      <div className={styles.bottom}>
-        <div style={{ width: '180px' }} >
-
-          <Sidebar></Sidebar>
+          <button onClick={logout} className={styles.logout}>
+            Log out
+          </button>
 
         </div>
 
-        <div style={{ marginLeft: "3rem", marginTop: '1rem', marginBottom: '2rem', width: '100%' }}>
-          {/* add stages  */}
-          <button
-            className={styles.addbutton}>
-            <Add /> Stage</button>
-          <div style={{ width: '100%', display: 'flex' }}>
-            {/* <div style={{
-              height: '150px',
-              width: '150px', borderRadius: '20px',
-              boxShadow: '5px 2px 10px #030333', marginBottom: '2rem'
-    onChange={(e)=>{console.log(e.target.value);setPlan({plan_name:e.target.value})}}        }}>
+        <div className={styles.bottom}>
+          <div style={{ width: '180px' }} >
 
-              <h5 style={{ margin: '5rem' }}>
-                {plandata.plan.plan_name}
+            <Sidebar></Sidebar>
 
-              </h5>
-            </div> */}
+          </div>
 
-            <div style={{
-              height: '500px', marginLeft: '2rem', padding: '1rem',
-              width: '800px', borderRadius: '20px',
-              boxShadow: '5px 2px 10px #030333', marginBottom: '2rem'
-            }}>
+          <div style={{ marginLeft: "3rem", marginTop: '1rem', marginBottom: '2rem', width: '100%' }}>
+            <Link to={`/stages/${id}`}>
+              <button
+                className={styles.addbutton}>
+                <Add /> Stage</button>
+            </Link>
+
+            <div style={{ width: '100%', display: 'flex' }}>
 
 
+              <div style={{
+                height: 'max-content', marginLeft: '2rem', padding: '1rem',
+                width: '800px', borderRadius: '20px',
+                boxShadow: '5px 2px 10px #030333', marginBottom: '2rem'
+              }}>
 
+                <form className={classes.root}>
+                  <div className="form-group">
 
-              <form className={classes.root}>
-                <div className="form-group">
+                    <input type="text" className="form-control"
+                      style={{
+                        width: '175px',
+                        backgroundColor: 'Window',
+                        marginLeft: '0.5rem'
+                      }}
+                      value={plandata.plan.plan_name}
+                      name="plan_name"
+                      onChange={(e) => {
+                        console.log(e.target.value);
+                        // handleChange(e)
+                        setPlandata({ plan_name: e.target.value })
+                      }}
+                    />
+                  </div>
 
-                  <input type="text" className="form-control"
+                  <TextField
 
-                    style={{
-                      width: '175px',
-                      backgroundColor: 'Window',
-                      marginLeft: '0.5rem'
-                    }}
-                    value={plandata.plan.plan_name}
-                    name="plan_name"
-                    onChange={(e) => {
-                      console.log(e.target.value);
-                      // handleChange(e)
-                      setPlandata({ plan_name: e.target.value })
-                    }}
+                    id="outlined-required"
+                    helperText="plan amount"
+                    value={plandata.plan.plan_amount}
+                    variant="outlined"
+
                   />
-                </div>
 
+                  <TextField
+                    required
+                    id="outlined-required"
+                    helperText="initial payment"
+                    value={plandata.plan.initial_payment}
+                    variant="outlined"
+                  />
 
+                  <br></br>
+                  <TextField
+                    required
+                    id="outlined-required"
+                    multiline
+                    style={{ width: '350px', height: 'max-content' }}
+                    value={plandata.plan.plan_services}
+                    variant="outlined"
+                    helperText="services provided"
+                  />
 
-                <TextField
+                  <br></br>
+                  <div style={{ display: 'flex', marginTop: '5px', height: 'max-content' }}>
+                    <TextField
+                      required
+                      id="outlined-required"
+                      helperText="no of stages"
+                      value={plandata.plan.no_of_stages}
+                      variant="outlined"
+                    />
 
-                  id="outlined-required"
-                  helperText="plan amount"
-                  value={plandata.plan.plan_amount}
-                  variant="outlined"
+                    <div>
+                      {
+                        stages.map((items) => {
+                          return (<>
+                            <input type="text" value={items} className="form-control"
 
-                />
+                              style={{
+                                width: '150px',
+                                backgroundColor: 'Window',
+                                marginLeft: '0.5rem'
+                              }} />
+                            <br></br>
+                          </>)
+                        })
+                      }
+                    </div>
 
-                <TextField
-                  required
-                  id="outlined-required"
-                  helperText="initial payment"
-                  value={plandata.plan.initial_payment}
-                  variant="outlined"
-                />
-                <TextField
-                  required
-                  id="outlined-required"
-                  helperText="initial payment"
-                  value={plandata.plan.no_of_stages}
-                  variant="outlined"
-                />
-                <br></br>
-                <TextField
-                  required
-                  id="outlined-required"
-                  multiline
-                  style={{ width: '350px', height: '150px' }}
-                  value={plandata.plan.plan_services}
-                  variant="outlined"
-                  helperText="services provided"
-                />
+                    <div>
+                      {stageprice.map((data) => {
+                        return (<>
+                          <input type="text" value={data} className="form-control"
 
-                <br></br>
+                            style={{
+                              width: '80px',
+                              backgroundColor: 'Window',
+                              marginLeft: '0.5rem'
+                            }} />
+                          <br></br>
+                        </>)
+                      })}
+                      <br></br></div>
+                  </div>
 
+                  <button className='btn btn-info mr-2 text-white' onClick={() => { update(plandata._id) }}>Update</button>
+                  <button className='btn btn-secondary'>Cancel</button>
+                </form>
 
-                <button className='btn btn-info mr-2 text-white' onClick={() => { update(plandata._id) }}>Update</button>
-                <button className='btn btn-secondary'>Cancel</button>
-              </form>
-
-
-
-              {/* {plandata.plan.plan_services.map((data) => {
-                          return (
-                            <p>{data}</p>)
-                        })} */}
-
+              </div>
 
             </div>
-
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  } return (accessToken) ? <PlanviewisLoggedin /> : <App />
 }
 
 export default PlanDashboard

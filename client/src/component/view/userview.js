@@ -7,14 +7,17 @@ import {
 } from "@material-ui/icons";
 import UserDashboard from './UserDashboard';
 import { useHistory } from 'react-router-dom';
+import '../styles/pagination.css'
 
+axios.defaults.withCredentials = true;
 
 function Userview() {
+
   const history = useHistory();
   const [userlist, setUserlist] = useState({ users: [] });
 
-
   const getUserdata = () => {
+
     axios
       .get('/api/viewuser', {
         headers: {
@@ -22,9 +25,7 @@ function Userview() {
         }
       })
       .then((res) => {
-        // console.log(res.data.details);
         setUserlist({ users: res.data.details })
-        // console.log("userlist :", userlist)
       })
       .catch((err) => {
         console.log(err.response);
@@ -47,12 +48,13 @@ function Userview() {
   const viewuser = (id) => {
     history.push(`/userdashboard/${id}`)
 
-
   }
+
+
   return (
     <>
       <div className="ml-5">
-        <table className="table table-hover">
+        <table id="dtBasicExample" className="table table-hover table-striped table-bordered">
           <thead className={styles.tableview}>
 
             <tr>
@@ -73,11 +75,13 @@ function Userview() {
           {
             userlist.users.map((datas, i) => {
               console.log("data :", datas)
+              const table=document.getElementById('dtBasicExample')
+
               {
-                if (datas.userlogindetails.length != 0) {
+                if (datas.userlogindetails.length != 0 ) {
                   return (
-                    //  <label style={{ color: "white" }}>username :{datas.uname}</label>
                     <tbody>
+                    
                       <tr >
                         <td style={{ color: '#04524b' }}><PersonPin /></td>
                         <td>{i + 1}</td>
@@ -94,6 +98,7 @@ function Userview() {
                           )
                         })}
                       </tr>
+                      
                     </tbody>
                   )
                 }
@@ -103,9 +108,22 @@ function Userview() {
             })
           }
         </table>
+
+        <div className="pagination">
+          <a href="#">&laquo;</a>
+          <a href="#">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">5</a>
+          <a href="#">6</a>
+          <a href="#">&raquo;</a>
+        </div>
+
       </div>
     </>
   )
 }
+
 
 export default Userview

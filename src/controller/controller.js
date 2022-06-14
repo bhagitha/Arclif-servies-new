@@ -7,6 +7,7 @@ const userPlanData = require('../model/userplan')
 const BuldingDetails = require('../model/buildingdetails');
 const RequirementslistData = require('../model/requirementslist');
 const userAdonData = require('../model/useradonservices')
+const Stages=require('../model/stages');
 
 
 //create plan
@@ -566,6 +567,21 @@ const getRate= (req, res) => {
 
 }
 
+const adStage=(req, res)=>{
+    try {
+        console.log(req.body)
+        const Stagesdata = Stages(req.body)
+        Stagesdata.save().then((response) => {
+            res.status(200).json({ msg: "stage added", details: response })
+        }).catch((err) => {
+            console.error(err);
+            res.json({ msg: `error : stage not added !! ${err}`, })
+        })
+    } catch (err) {
+        res.send(err)
+    }
+}
+
 module.exports = {
     createPlan,
     viewplan,
@@ -600,4 +616,6 @@ module.exports = {
     chooseAdon,//save user adon 
     getuseradon,//get user adon services
  getRate,
+
+ adStage,
 }

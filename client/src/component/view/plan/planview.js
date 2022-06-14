@@ -6,7 +6,7 @@ import {
 } from "@material-ui/icons";
 import {useHistory} from  'react-router-dom';
 
-
+axios.defaults.withCredentials = true;
 function PlanView() {
     const history = useHistory();
     const [planlist, setPlanlist] = useState({ plans: [] });
@@ -14,7 +14,7 @@ function PlanView() {
 
     const getPlandata = () => {
         axios
-            .get('/api/viewplan')
+            .get('/api/viewplan',{withCredentials:true},)
             .then((res) => {
                 console.log(res.data.details);
                 setPlanlist({ plans: res.data.details })

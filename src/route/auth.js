@@ -17,8 +17,8 @@ router.get('/logout', auth.logout)
 
 //create plan
 router.post('/createplan', controller.createPlan)
-router.get('/viewplan', controller.viewplan)
-router.get('/viewsingleplan/:id', controller.viewplanbyid)
+router.get('/viewplan', auth.authenticateUser, controller.viewplan)
+router.get('/viewsingleplan/:id', auth.authenticateUser, controller.viewplanbyid)
 router.put('/updateplan/:id', controller.updateplan)
 
 //create adon services
@@ -29,11 +29,11 @@ router.delete('/deleteadonservices/:id', controller.deleteAdonServiceData)
 
 //create user
 router.post('/createuser', controller.createuser)
-router.get('/viewuser', controller.viewuser)
+router.get('/viewuser',auth.authenticateUser, controller.viewuser)
 router.get('/viewlogin', controller.viewlogin)
 router.put('/updateuser/:id', controller.updateuser)
 router.delete('/deleteuser', controller.deleteUser)
-router.get('/viewsingleuser/:id', controller.viewsingleuser)
+router.get('/viewsingleuser/:id', auth.authenticateUser, controller.viewsingleuser)
 
 //create and view requiremntslist
 router.post('/setrequirementslist', controller.setRequirementsList)
@@ -52,7 +52,10 @@ router.post('/getuserAdon', controller.getuseradon)
 router.post('/addbuildingdetails', controller.addBuildingDetails)
 //get building details for user
 router.post('/getbuildingdetails', controller.getBuildingDetails)
-router.get('/getrate', controller.getRate)
+router.get('/getrate', controller.getRate);
+
+router.post('/addstage', controller.adStage);
+
 
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -65,7 +68,7 @@ const storage = multer.diskStorage({
 })
 var upload = multer({ storage: storage })
 
-router.post('/upload', upload.single("file"), (req, res) => {
+router.post('/upload', upload.single("file"), auth.authenticateUser, (req, res) => {
 
     try {
 
@@ -77,7 +80,7 @@ router.post('/upload', upload.single("file"), (req, res) => {
     }
 
 })
-router.post('/filedataupload/:id', (req, res) => {
+router.post('/filedataupload/:id', auth.authenticateUser, (req, res) => {
 
     try {
 
@@ -90,6 +93,7 @@ router.post('/filedataupload/:id', (req, res) => {
             stage_Description:req.body.stage_Description,
             filename:req.body.filename,
             total_amount:req.body.total_amount,
+            file_name:req.body.file_name
         }
         const adminfilestoredata = Adminfilestore(data)
         adminfilestoredata.save().then((response) => {
@@ -101,7 +105,7 @@ router.post('/filedataupload/:id', (req, res) => {
     }
 
 })
-router.post('/getfiles/:id', (req, res) => {
+router.post('/getfiles/:id', auth.authenticateUser, (req, res) => {
     try {
         if (req.params.id) {
             Userfilestore.find({ login_id: req.body.id })

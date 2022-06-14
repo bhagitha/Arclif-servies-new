@@ -7,66 +7,73 @@ import Userview from './userview';
 import {
 	PersonPin, Edit, Delete, Add
 } from "@material-ui/icons";
-import {Link} from  'react-router-dom';
+import { Link } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+import App from '../../App';
+
+import DataTable from './DataTable'
+import useTable from '../useTable'
+
+const cookies = new Cookies();
 
 function UserslistView() {
 
-	const logout = () => {
-		axios
-			.get('/api/logout')
-			.then((res) => {
-				console.log(res.data);
-			})
-			.catch((err) => {
-				console.log(err.response);
-			});
-		window.location.reload();
-	};
+	const accessToken = cookies.get('authSession');
+	console.log("accessToken :", accessToken);
 
+	function UserviewisLoggedin() {
 
+		const logout = () => {
+			axios
+				.get('/api/logout')
+				.then((res) => {
+					console.log(res.data);
+				})
+				.catch((err) => {
+					console.log(err.response);
+				});
+			window.location.reload();
+		};
 
-	return (
-		<>
-			{/* {data} */}
+		return (
+			<>
 
-			<div className={styles}>
-				<div className={styles.top}>
-					<p >AGRIHA</p>
-					{/* <button onClick={logout} className={styles.logout}> */}
-					{/* Log out
+				<div className={styles}>
+					<div className={styles.top}>
+						<p >AGRIHA</p>
+						{/* <button onClick={logout} className={styles.logout}> */}
+						{/* Log out
 				</button> */}
-				</div>
-
-				<div className={styles.bottom}>
-					<div style={{ width: '180px' }} >
-
-						<Sidebar></Sidebar>
-
 					</div>
 
-					<div>
-						{/* {userlist.map((data, i) => {
-					return <label key={i}>{data.uname}</label>} */}
-						<Link to="/registereduser"><button
-							className={styles.addbutton}>
-							<Edit /> Registered users</button></Link>
+					<div className={styles.bottom}>
+						<div style={{ width: '180px' }} >
 
-						<button
-							className={styles.addbutton}>
-							<Add /> User</button>
+							<Sidebar></Sidebar>
 
-						<Userview />
+						</div>
 
-						{/* <Requirements/> */}
+						<div>
 
+							<Link to="/registereduser"><button
+								className={styles.addbutton}>
+								<Edit /> Registered users</button></Link>
 
+							<Link to="/createuser">	<button
+								className={styles.addbutton}>
+								<Add /> Create customer</button></Link>
+
+							<Userview />
+{/* <DataTable/> */}
+
+						</div>
 
 					</div>
-
 				</div>
-			</div>
-		</>
-	);
+			</>
+		);
+	}
+	return (accessToken) ? <UserviewisLoggedin /> : <App />
 }
 
 export default UserslistView;

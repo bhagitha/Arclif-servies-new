@@ -33,33 +33,33 @@ const login = (req, res) => {
             const hash = crypto.createHmac('sha256', smsKey).update(data).digest('hex');
             const fullHash = `${hash}.${expires}`;
             //change
-            var msg="";
-            const message=req.body.flag;
-           
-            Logindata.find({ phonenumber: phone })
-            .then((response) => {
-                if(response.length==0){ 
-                   msg='register' 
-                }else {msg='login'}
-            })
-     
-            setTimeout(()=>{
-            if(msg==message){
-            var options = { authorization: fast2smsKey, message: `Security code For AGRIHA is ${otp}`, numbers: [phone] }
-            fast2sms.sendMessage(options)
-                .then((messages) => {
-                    console.log(messages)
-                    res.status(200).send({ phone: phone, hash: fullHash, msg: `OTP :${otp} send successfully`, status: "200",flag:`${msg}` });
-                })
-                .catch((err) => {
-                    console.error(err);
-                    res.status(404).send({ msg: "Fast-2-sms error", status: "404" });
-                });
-            }else{
-                res.status(200).send({ phone: phone, flag:`${msg}` });
+            var msg = "";
+            const message = req.body.flag;
 
-            }
-        },1000)
+            Logindata.find({ phonenumber: phone })
+                .then((response) => {
+                    if (response.length == 0) {
+                        msg = 'register'
+                    } else { msg = 'login' }
+                })
+
+            setTimeout(() => {
+                if (msg == message) {
+                    var options = { authorization: fast2smsKey, message: `Security code For AGRIHA is ${otp}`, numbers: [phone] }
+                    fast2sms.sendMessage(options)
+                        .then((messages) => {
+                            console.log(messages)
+                            res.status(200).send({ phone: phone, hash: fullHash, msg: `OTP :${otp} send successfully`, status: "200", flag: `${msg}` });
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                            res.status(404).send({ msg: "Fast-2-sms error", status: "404" });
+                        });
+                } else {
+                    res.status(200).send({ phone: phone, flag: `${msg}` });
+
+                }
+            }, 1000)
         } else {
             res.json({ msg: `phonenumber required !!` })
         }
@@ -113,15 +113,14 @@ const verifyOTP = (req, res) => {
                                 data: response
                             }]
                         }
-                        const accessToken = jwt.sign({ data: phone }, JWT_AUTH_TOKEN, { expiresIn: '30s' });
+                        const accessToken = jwt.sign({ data: phone }, JWT_AUTH_TOKEN, { expiresIn: '24h' });
                         const refreshToken = jwt.sign({ data: phone }, JWT_REFRESH_TOKEN, { expiresIn: '1y' });
 
                         refreshTokens.push(refreshToken);
                         setTimeout(() => {
                             res
-                                .status(200)
                                 .cookie('accessToken', accessToken, {
-                                    expires: new Date(new Date().getTime() + 30 * 1000),
+                                    expires: new Date(new Date().getTime() + 30 * 60 * 1000),
                                     sameSite: 'strict',
                                     httpOnly: true
                                 })
@@ -129,15 +128,16 @@ const verifyOTP = (req, res) => {
                                     expires: new Date(new Date().getTime() + 31557600000), //1 year
                                     sameSite: 'strict',
                                     httpOnly: true
-                                }) 
+                                })
                                 .cookie('authSession', true, {
-                                    expires: new Date(new Date().getTime() + 30 * 1000), sameSite: 'strict'
+                                    expires: new Date(new Date().getTime() + 30 * 60 * 1000),
+                                    sameSite: 'strict'
                                 })
                                 .cookie('refreshTokenID', true, {
                                     expires: new Date(new Date().getTime() + 31557600000),
                                     sameSite: 'strict'
                                 })
-                                .send({ msg: `${msg} verified`, data: details });
+                                .send({ msg: `${msg} verified`, data: details, });
                         }, 1000)
                     }).catch((err) => {
 
@@ -166,7 +166,7 @@ const home = (req, res) => {
 async function authenticateUser(req, res, next) {
     try {
         const accessToken = req.cookies.accessToken;
-
+        // const accessToken = req.headers.authorization.split("")[1]
         jwt.verify(accessToken, JWT_AUTH_TOKEN, async (err, phone) => {
             if (phone) {
                 req.phone = phone;
@@ -202,12 +202,12 @@ const refresh = (req, res) => {
                 return res
                     .status(200)
                     .cookie('accessToken', accessToken, {
-                        expires: new Date(new Date().getTime() + 30 * 1000),
+                        expires: new Date(new Date().getTime() + 30 * 60 *  1000),
                         sameSite: 'strict',
                         httpOnly: true
                     })
                     .cookie('authSession', true, {
-                        expires: new Date(new Date().getTime() + 30 * 1000),
+                        expires: new Date(new Date().getTime() + 30 * 60 * 1000),
                         sameSite: 'strict'
                     })
                     .json({ previousSessionExpired: true, success: true });
