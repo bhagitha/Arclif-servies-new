@@ -199,6 +199,11 @@ function FileuploadComponent() {
 
     useEffect(() => { get_amount() }, [pricevalue])
 
+    const downloadfile=(filename)=>{
+
+        alert(filename)
+    }
+
     return (
         <div>
             <div className={styles}>
@@ -347,6 +352,7 @@ function FileuploadComponent() {
                                             <th scope="col" style={{ width: '10%' }}>Rate in percentage</th>
                                             <th scope="col" style={{ width: '10%' }}>stage Description </th>
                                             <th scope="col" style={{ width: '10%' }}>files added</th>
+                                            <th scope="col" style={{ width: '10%' }}></th>
                                             <th scope="col" style={{ width: '10%' }}>Display</th>
                                         </tr>
                                     </thead>
@@ -368,6 +374,7 @@ function FileuploadComponent() {
                                                         <td>{u.rate}</td>
                                                         <td>{u.stage_Description}</td>
                                                         <td>{u.file_name}</td>
+                                                        <td><button className='btn btn-primary' onClick={()=>{downloadfile(u.file_name)}} >Download</button></td>
                                                         <td>
 
                                                             <img src={`/assets/files/${u.filename}`} style={{ width: '150px', height: '150px' }} alt="no preview available " />
