@@ -35,7 +35,7 @@ export default function Sidebar() {
             <Link to="/plans" className="sidebarListItemText" > 
               <span className="sidebarListItemText">Plans</span></Link>
           </li>
-         
+          <hr></hr>
           <li className="sidebarListItem">
             <Chat className="sidebarIcon" />
             <Link to="/adonservices" className="sidebarListItemText" > 
@@ -50,14 +50,17 @@ export default function Sidebar() {
             <HelpOutline className="sidebarIcon" />
             <span className="sidebarListItemText">Questions</span>
           </li>
+          <hr></hr>
           <li className="sidebarListItem">
             <WorkOutline className="sidebarIcon" />
             <span className="sidebarListItemText">Jobs</span>
           </li>
+          <hr></hr>
           <li className="sidebarListItem">
             <Event className="sidebarIcon" />
             <span className="sidebarListItemText">Events</span>
           </li>
+            <hr></hr>
           <li className="sidebarListItem">
             <School className="sidebarIcon" />
             <span className="sidebarListItemText">Courses</span>

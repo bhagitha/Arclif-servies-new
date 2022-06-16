@@ -4,66 +4,58 @@ import axios from 'axios';
 import Adonview from '../adonservices/adonview';
 import styles from '../../styles/home.module.css';
 import Sidebar from '../../sidebar';
+import App from '../../../App';
 
 import {
-	PersonPin,Edit,Delete,Add
-  } from "@material-ui/icons";
+	PersonPin, Edit, Delete, Add
+} from "@material-ui/icons";
+
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 axios.defaults.withCredentials = true;
+
 function Adonlistview() {
 
-	const logout = () => {
-		axios
-			.get('/api/logout')
-			.then((res) => {
-				console.log(res.data);
-			})
-			.catch((err) => {
-				console.log(err.response);
-			});
-		window.location.reload();
-	};
+	const accessToken = cookies.get('authSession');
+	console.log("accessToken :", accessToken);
 
-
-
-	return (
-		<>
-		{/* {data} */}
-
-		<div className={styles}>
-			<div className={styles.top}>
-				<p >AGRIHA</p>
-				{/* <button onClick={logout} className={styles.logout}> */}
-				{/* Log out
-				</button> */}
-			</div>
-
-			<div className={styles.bottom}>
-				<div style={{ width: '180px' }} >
-
-					<Sidebar></Sidebar>
-
+	function UserviewisLoggedin() {
+		const logout = () => {
+			axios
+				.get('/api/logout')
+				.then((res) => {
+					console.log(res.data);
+				})
+				.catch((err) => {
+					console.log(err.response);
+				});
+			window.location.reload();
+		};
+		return (
+			<>
+				<div className={styles}>
+					<div className={styles.top}>
+						<p >AGRIHA</p>
+					</div>
+					<div className={styles.bottom}>
+						<div style={{ width: '180px' }} >
+							<Sidebar></Sidebar>
+						</div>
+						<div>
+							<button
+								className={styles.addbutton}>
+								<Add /> Adon </button>
+							<Adonview />
+						</div>
+					</div>
 				</div>
+			</>
+		);
+	}
 
-				<div>
-					{/* {userlist.map((data, i) => {
-					return <label key={i}>{data.uname}</label>} */}
-
-					<button 
-					className={styles.addbutton}> 
-					<Add/> Adon </button>
-				<Adonview/>
-					
-					{/* <Requirements/> */}
-				
-					
-					
-				</div>
-
-			</div>
-		</div>
-		</>
-	);
+	return (accessToken) ? <UserviewisLoggedin /> : <App />
 }
 
 export default Adonlistview;

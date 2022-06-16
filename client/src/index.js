@@ -22,6 +22,7 @@ import UploadFileComponent from './component/add/UploadFileComponent'
 import FileuploadComponent from './component/add/FileuploadComponent'
 import RegistereduserView from './component/view/RegistereduserView'
 import Adstages from './component/add/adstages';
+import Createuser from './component/view/user/ClientProfile';
 // import './styles.scss';
 
 ReactDOM.render(
@@ -63,6 +64,9 @@ ReactDOM.render(
         </Route>
         <Route exact path='/stages/:id'>
           <Adstages/>
+        </Route>
+        <Route exact path='/createuser'>
+          <Createuser/>
         </Route>
       </Switch>
     </BrowserRouter>

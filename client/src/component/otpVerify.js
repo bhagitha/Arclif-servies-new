@@ -32,21 +32,25 @@ function OtpVerify(props) {
 				withCredentials: true
 			})
 			.then(function (res) {
-				console.log("res :",res)
+				console.log("res :", res)
 				// const hash = res.data.hash;
 				// hashHandleChange(hash);
 				// console.log("data user :", res.data.data[0].data[0]);
 				// console.log("roletype user :", res.data.data[0].data[0].roletype);
-				if (res.data.data[0].data[0].roletype == 'Admin') {
-					// window.location.reload();
-					history.push('/home')
+				if (res.data.msg == 'login verified' || res.data.msg == 'register verified') {
+					if (res.data.data[0].data[0].roletype == 'Admin') {
+						// window.location.reload();
+						history.push('/home')
+					} else {
+						// history.push('/home')
+						toast.error('Admin not found !!')
+					}
 				} else {
-					// history.push('/home')
-					toast.success('Admin not found !!')
+					toast.error(res.data.msg)
 				}
 			})
 			.catch(function (error) {
-				console.log("error :",error);
+				console.log("error :", error);
 				setError({ ...error, error: error.response.data.msg });
 			});
 	};
@@ -68,6 +72,7 @@ function OtpVerify(props) {
 							placeholder="Enter the 6 digits OTP"
 							className={styles.input}
 						/>
+						
 					</div>
 					<button onClick={back} className={styles.back}>
 						Back

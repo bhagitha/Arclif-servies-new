@@ -54,24 +54,21 @@ function Userview() {
   return (
     <>
       <div className="ml-5">
-        <table id="dtBasicExample" className="table table-hover table-striped table-bordered">
+        <table id="dtBasicExample" className="table table-hover table-striped table-bordered bg-white">
           <thead className={styles.tableview}>
 
             <tr>
               <th scope="col" style={{ width: '2%' }}>  </th>
-              <th scope="col" style={{ width: '8%' }}>customer </th>
+              <th scope="col" style={{ width: '5%' }}>Customer </th>
               <th scope="col" style={{ width: '10%' }}>Name</th>
               <th scope="col" style={{ width: '10%' }}>Place</th>
               <th scope="col" style={{ width: '10%' }}>Phonenumber</th>
-              <th scope="col" style={{ width: '10%' }}> Created at</th>
-              <th scope="col" style={{ width: '8%' }}></th>
-              <th scope="col" style={{ width: '8%' }}>
-
-              </th>
+              <th scope="col" style={{ width: '10%' }}>Created at</th>
+              <th scope="col" style={{ width: '5%' }}></th>
+              <th scope="col" style={{ width: '5%' }}></th>
             </tr>
 
           </thead>
-
           {
             userlist.users.map((datas, i) => {
               console.log("data :", datas)
@@ -101,9 +98,8 @@ function Userview() {
                       
                     </tbody>
                   )
-                }
+                 }
               }
-
 
             })
           }

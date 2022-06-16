@@ -109,10 +109,10 @@ const createadonservices = (req, res) => {
 const viewadonservices = (req, res) => {
     try {
         AdonServiceData.find().then((response) => {
-            console.log(response);
+            // console.log(response);
             res.status(200).json({ msg: "success", details: response })
         }).catch((err) => {
-            console.error(err);
+            // console.error(err);
             res.json({ msg: `error : ${err}`, })
         })
     } catch (err) {
@@ -197,6 +197,8 @@ try {
 //view user
 const viewuser = (req, res) => {
     try {
+        const limit=35;
+        const sort = { length: -1 };
         userData.aggregate([
             {
                 $lookup:
@@ -207,8 +209,12 @@ const viewuser = (req, res) => {
                     as: 'userlogindetails'
                 }
             }
-        ]).then((response) => {
-            res.status(200).json({ msg: "success", details: response })
+        ])  
+            .limit(limit)
+            .then((response) => {
+            res
+            .status(200).json({ msg: "success", details: response }) 
+          
         })
     } catch (err) {
         res.send(err)

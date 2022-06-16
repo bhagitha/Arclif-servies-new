@@ -49,7 +49,7 @@ function UserDashboard(props) {
             // console.log("userlist :", userdata);
             // console.log("loginlist :", logindata);
           } else {
-            toast.success('no user found !!')
+            toast.error('no user found !!')
           }
 
         })
@@ -64,7 +64,7 @@ function UserDashboard(props) {
             setUserplan({ userplan: res.data.details })
             setPlanservices(res.data.details.plan_services)
           } else {
-            toast.success('no plan found !!')
+            toast.error('no plan found !!')
           }
         })
 
@@ -74,7 +74,7 @@ function UserDashboard(props) {
             setBuildingdetails(response.data.details)
             console.log("buildingdetails :", response.data.details)
           } else {
-            toast.success('no building details found !!')
+            toast.error('no building details found !!')
           }
         })
       // setPlanservices({services:userPlan.userplan.plan_services})
@@ -88,7 +88,7 @@ function UserDashboard(props) {
             setRequirementsList(response.data.details.requirements_list)
             console.log("requirements list :", response.data.details.requirements_list)
           } else {
-            toast.success('no requirements details found !!')
+            toast.error('no requirements details found !!')
           }
         })
 
@@ -273,7 +273,8 @@ function UserDashboard(props) {
                           <br></br>
                         </>
                       )
-                    }) : <label>no data found</label>}
+                    }) : <label>no data found</label>
+                    }
                   </div>
 
                   <div style={{ marginTop: '0', marginLeft: '1rem', borderRight: '1px solid #a3a3c2', width: '150px' }}>

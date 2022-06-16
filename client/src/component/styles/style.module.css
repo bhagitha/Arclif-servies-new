@@ -13,9 +13,9 @@
     height: 100vh;
     width: 100%;
     background-image: url('../../img/backgroundpic.jpg');
-    background-position: right;
+    /* background-position: right; */
     background-repeat: no-repeat;
-    /* background-size: 100% 100%; */
+    background-size: cover;
     background-blend-mode: darken;
     /* background-size: 65rem; */
     /* background-image: linear-gradient(135deg, #ffffff, #f1b69a,#e7b695); */
@@ -24,8 +24,8 @@
 }
 
 .container {
-    height: 300px;
-    width: 450px;
+    height: 45%;
+    width: 30%;
     /* background-image: linear-gradient(135deg, #1e88e5, #0d47a1); */
     background-color: #f7f7f7de;
     border-radius: 15px;

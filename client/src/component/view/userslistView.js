@@ -59,9 +59,11 @@ function UserslistView() {
 								className={styles.addbutton}>
 								<Edit /> Registered users</button></Link>
 
+
 							<Link to="/createuser">	<button
 								className={styles.addbutton}>
 								<Add /> Create customer</button></Link>
+
 
 							<Userview />
 {/* <DataTable/> */}

@@ -3,7 +3,7 @@ import axios from 'axios';
 import styles from './styles/home.module.css';
 import Requirements from './requirements'
 import Sidebar from './sidebar'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Userdashboard from './view/UserDashboard'
 import Cookies from 'universal-cookie';
 import App from '../App';
@@ -17,62 +17,67 @@ function Home() {
 	console.log("accessToken :", accessToken);
 
 	function UserisLoggedin() {
-	const [state, setState] = useState({
-		value: 'Private Protected Route - Home'
-	});
+		const [state, setState] = useState({
+			value: 'Private Protected Route - Home'
+		});
 
-	/*  The UseEffect below is used to verify the working of Protected Route. 
-	 Do not use it aimlessly as it will cause performance issue and server timout due to infinite execution in loop
+		/*  The UseEffect below is used to verify the working of Protected Route. 
+		 Do not use it aimlessly as it will cause performance issue and server timout due to infinite execution in loop
+	
+		useEffect(() => {
+			console.log(state.value)
+			axios
+				.post('http://localhost:8888/home', {
+					withCredentials: true
+				})
+				.then(function(res) {
+					// console.log(res.data);
+					setState({ ...state, value: res.data });
+				})
+				.catch(function(error) {
+					console.log(error.response);
+				});
+		},[state]);
+		*/
 
-	useEffect(() => {
-		console.log(state.value)
-		axios
-			.post('http://localhost:8888/home', {
-				withCredentials: true
-			})
-			.then(function(res) {
-				// console.log(res.data);
-				setState({ ...state, value: res.data });
-			})
-			.catch(function(error) {
-				console.log(error.response);
-			});
-	},[state]);
-	*/
-
-	const logout = () => {
-		axios
-			.get('/api/logout')
-			.then((res) => {
-				console.log(res.data);
-			})
-			.catch((err) => {
-				console.log(err.response);
-			});
-		window.location.reload();
-	};
-	return (
-		<div className={styles}>
-			<div className={styles.top}>
-				<p>ADMIN</p>
-				{/* <button onClick={logout} className={styles.logout}>
+		const logout = () => {
+			axios
+				.get('/api/logout')
+				.then((res) => {
+					console.log(res.data);
+				})
+				.catch((err) => {
+					console.log(err.response);
+				});
+			window.location.reload();
+		};
+		return (
+			<div className={styles}>
+				<div className={styles.top}>
+					<p>ADMIN</p>
+					{/* <button onClick={logout} className={styles.logout}>
 					Log out
 				</button> */}
-			</div>
-			<div className={styles.bottom}>
-			
-				<div style={{width: '180px'}} >
+				</div>
+				<div className={styles.bottom}>
 
-				<Sidebar></Sidebar>
-				
-				</div>	
-			
+					<div style={{ width: '180px' }} >
+
+						<Sidebar></Sidebar>
+
+					</div>
+					{/* <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2 ">
+
+						<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+							className="img-fluid" alt="Sample image" />
+
+					</div> */}
+				</div>
+
 			</div>
-			
-		</div>
-	);
-}
-return (accessToken) ? <UserisLoggedin /> : <App />
+		);
+	}
+	return (accessToken) ? <UserisLoggedin /> : <App />
 }
 
 export default Home;

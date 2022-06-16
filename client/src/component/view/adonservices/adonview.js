@@ -13,9 +13,9 @@ function Adonview() {
 
   const getAdondata = () => {
     axios
-      .get('/api/adonservices')
+      .get('/api/viewadonservices')
       .then((res) => {
-        // console.log(res.data.details);
+        // console.log("ad on data : ",res.data.details);
         setAdonlist({ adon: res.data.details })
         // console.log("userlist :", userlist)
       })
@@ -49,11 +49,12 @@ function Adonview() {
        
           <tr>
             <th scope="col" style={{width:'2%'}}>  </th>
+            <th scope="col" style={{width:'3%'}}>Sl no</th>
             <th scope="col" style={{width:'8%'}}>Adon service </th>
-            <th scope="col" style={{width:'10%'}}>Amount</th>  
+            <th scope="col" style={{width:'8%'}}>Amount</th>  
           
-            <th scope="col" style={{width:'8%'}}></th>
-            <th scope="col" style={{width:'8%'}}>
+            <th scope="col" style={{width:'6%'}}></th>
+            <th scope="col" style={{width:'6%'}}>
               
             </th>
           </tr>

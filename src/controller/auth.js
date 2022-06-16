@@ -45,7 +45,7 @@ const login = (req, res) => {
 
             setTimeout(() => {
                 if (msg == message) {
-                    var options = { authorization: fast2smsKey, message: `Security code For AGRIHA is ${otp}`, numbers: [phone] }
+                    var options = { authorization: fast2smsKey, message: `${otp}- Team AGRIHA ! `, numbers: [phone] }
                     fast2sms.sendMessage(options)
                         .then((messages) => {
                             console.log(messages)
