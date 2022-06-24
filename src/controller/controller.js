@@ -7,7 +7,9 @@ const userPlanData = require('../model/userplan')
 const BuldingDetails = require('../model/buildingdetails');
 const RequirementslistData = require('../model/requirementslist');
 const userAdonData = require('../model/useradonservices')
-const Stages=require('../model/stages');
+const Stages = require('../model/stages');
+const OfflineusersData = require('../model/offlineusers');
+const ProjectData = require('../model/projects')
 
 
 //create plan
@@ -181,8 +183,8 @@ const createuser = (req, res) => {
         res.send(err)
     }
 }
-const viewlogin =(req,res)=>{
-try {
+const viewlogin = (req, res) => {
+    try {
         Logindata.find().then((response) => {
             console.log(response);
             res.status(200).json({ msg: "success", details: response })
@@ -197,8 +199,10 @@ try {
 //view user
 const viewuser = (req, res) => {
     try {
-        const limit=35;
-        const sort = { length: -1 };
+        // const limit=35;
+        // const sort = { length: -1 };
+        // const limitValue = req.query.limit || 2;
+        // const skipValue = req.query.skip || 0;
         userData.aggregate([
             {
                 $lookup:
@@ -209,13 +213,14 @@ const viewuser = (req, res) => {
                     as: 'userlogindetails'
                 }
             }
-        ])  
-            .limit(limit)
+        ])
+            // .limit(limitValue)
+            // .skip(skipValue)
             .then((response) => {
-            res
-            .status(200).json({ msg: "success", details: response }) 
-          
-        })
+                res
+                    .status(200).json({ msg: "success", details: response })
+
+            })
     } catch (err) {
         res.send(err)
     }
@@ -244,7 +249,7 @@ const viewsingleuser = (req, res) => {
             Logindata.find({ _id: id }).then((response) => {
                 // const data = { userdetails: respons, logindetails: response }
                 // console.log(response);
-                res.status(200).json({ msg: "success", userdetails: respons, logindetails: response  })
+                res.status(200).json({ msg: "success", userdetails: respons, logindetails: response })
             })
         }).catch((err) => {
             console.error(err);
@@ -557,8 +562,8 @@ const getuseradon = (req, res) => {
     }
 }
 
-const getRate= (req, res) => {
-    const stage=req.body.stages;
+const getRate = (req, res) => {
+    const stage = req.body.stages;
     try {
         PaymentPlanData.find().then((response) => {
             // console.log(response);
@@ -573,7 +578,7 @@ const getRate= (req, res) => {
 
 }
 
-const adStage=(req, res)=>{
+const adStage = (req, res) => {
     try {
         console.log(req.body)
         const Stagesdata = Stages(req.body)
@@ -586,6 +591,99 @@ const adStage=(req, res)=>{
     } catch (err) {
         res.send(err)
     }
+}
+
+const createOfflineUser = (req, res) => {
+
+    try {
+        console.log(req.body)
+        const contact_phone = req.body.contact_phone;
+        OfflineusersData.findOne({ contact_phone: contact_phone })
+            .then((response) => {
+                console.log(response)
+                if (!response) {
+
+                    const offlineuserdata = OfflineusersData(req.body)
+                    offlineuserdata.save().then((response) => {
+                        res.status(200).json({ msg: "user added !!", details: response })
+                    }).catch((err) => {
+                        console.error(err);
+                        res.json({ msg: `error : user not added !! ${err}`, })
+                    })
+                } else {
+                    res.json({ msg: `error : user already added !!`, data: response })
+                }
+            }).catch((err) => {
+                console.error(err);
+                res.json({ msg: `error : !! ${err}`, })
+            })
+    } catch (err) {
+        res.send(err)
+    }
+}
+
+const viewOfflineuser = (req, res) => {
+
+    try {
+        OfflineusersData.find().then((response) => {
+            // console.log(response);
+            res.status(200).json({ msg: "success", details: response })
+        }).catch((err) => {
+            // console.error(err);
+            res.json({ msg: `error : ${err}`, })
+        })
+    } catch (err) {
+        res.send(err)
+    }
+
+}
+
+const viewsingleofflineuser = (req, res) => {
+    try {
+        const id = req.params.id;
+        OfflineusersData.findById({ _id: id }).then((response) => {
+            console.log(response);
+            res.status(200).json({ msg: "success", details: response })
+        }).catch((err) => {
+            console.error(err);
+            res.json({ msg: `error : ${err}`, })
+        })
+    } catch (err) {
+        res.send(err)
+    }
+}
+
+
+const createOfflineProject = (req, res) => {
+    try {
+        const offlineprojectdata = ProjectData(req.body)
+        offlineprojectdata.save().then((response) => {
+            res.status(200).json({ msg: "project added !!", details: response })
+        }).catch((err) => {
+            console.error(err);
+            res.json({ msg: `error : project not added !! ${err}`, })
+        })
+    } catch (err) {
+        res.send(err)
+    }
+}
+
+
+const viewProject = (req, res) => {
+    try {
+        const id = req.params.id;
+        ProjectData.findById({ login_id:id }).then((response) => {
+            console.log(response);
+            res.status(200).json({ msg: "success", details: response })
+        }).catch((err) => {
+            console.error(err);
+            res.json({ msg: `error : ${err}`, })
+        })
+    } catch (err) {
+        res.send(err)
+    }
+
+
 }
 
 module.exports = {
@@ -606,7 +704,13 @@ module.exports = {
     updateuser,
     deleteUser,
     viewlogin,
-   
+
+    createOfflineUser,
+    viewOfflineuser,
+    viewsingleofflineuser,
+    createOfflineProject,
+    viewProject,
+
     setuserrequirements,
 
     addBuildingDetails,
@@ -621,7 +725,7 @@ module.exports = {
     getuserplan,//get user plan
     chooseAdon,//save user adon 
     getuseradon,//get user adon services
- getRate,
+    getRate,
 
- adStage,
+    adStage,
 }

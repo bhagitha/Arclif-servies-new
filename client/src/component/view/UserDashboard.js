@@ -15,6 +15,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'universal-cookie';
 import App from '../../App';
+import Header from '../header';
 
 const cookies = new Cookies();
 
@@ -118,15 +119,9 @@ function UserDashboard(props) {
     return (
 
       <div className={styles}>
-        <div className={styles.top}>
-          <p >AGRIHA</p>
-
-          <h3 style={{ marginTop: '3rem', float: "left" }}>User Profile </h3>
-
-          <button onClick={logout} className={styles.logout}>
-            Log out
-          </button>
-
+        <div>
+         
+<Header/>
         </div>
 
         <div className={styles.bottom}>

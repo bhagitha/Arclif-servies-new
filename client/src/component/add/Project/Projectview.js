@@ -5,19 +5,21 @@ import Sidebar from '../../sidebar'
 import {
 	PersonPin, Edit, Delete, Add
 } from "@material-ui/icons";
-import PlanView from './planview'
+import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import App from '../../../App';
-import Header from '../../header'
+
+import Header from '../../header';
+import AddProject from '../Project/AddProject'
 
 const cookies = new Cookies();
 
-function PlanlistView() {
+function ProjectView() {
 
 	const accessToken = cookies.get('authSession');
 	console.log("accessToken :", accessToken);
 
-	function PlanviewisLoggedin() {
+	function UserviewisLoggedin() {
 
 		const logout = () => {
 			axios
@@ -33,9 +35,10 @@ function PlanlistView() {
 
 		return (
 			<>
+
 				<div className={styles}>
-					<div >
-						<Header/>
+					<div style={{marginBottom:'1rem'}}>
+					<Header/>
 					</div>
 
 					<div className={styles.bottom}>
@@ -45,13 +48,16 @@ function PlanlistView() {
 
 						</div>
 
-						<div>
+						<div style={{marginTop:'1rem'}}>
 
-							<button
+							
+							<Link to="/createproject">	<button
 								className={styles.addbutton}>
-								<Add /> Plan</button>
-							<PlanView />
+								<Add /> Add Project </button>
+								</Link>
 
+
+							{/* <AddProject /> */}
 
 						</div>
 
@@ -60,7 +66,7 @@ function PlanlistView() {
 			</>
 		);
 	}
-	return (accessToken) ? <PlanviewisLoggedin /> : <App />
+	return (accessToken) ? <UserviewisLoggedin /> : <App />
 }
 
-export default PlanlistView;
+export default ProjectView;

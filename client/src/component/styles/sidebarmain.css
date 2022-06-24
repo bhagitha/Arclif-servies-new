@@ -1,0 +1,41 @@
+.sidebar {
+    height: max-content;
+    width: 200px;
+    background-color: rgb(75, 125, 109);
+    color: #ffffff;
+    /* position: fixed; */
+    left: 0px;
+}
+
+.sidebarCard {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 18px 0;
+    padding-left: 20px;
+    border-bottom: 1px solid rgb(173, 182, 172);
+}
+
+.sidebarCard>img {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+}
+
+.sidebarCard>p {
+    font-size: 14px;
+}
+
+.sidebarListItemText {
+    text-decoration: none;
+    color: aliceblue;
+    font-size: 14px;
+}
+
+.sidebarListItemText:hover {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    margin-left: 5px;
+    margin-right: 5px;
+}

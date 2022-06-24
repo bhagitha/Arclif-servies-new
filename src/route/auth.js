@@ -56,6 +56,13 @@ router.get('/getrate', controller.getRate);
 
 router.post('/addstage', controller.adStage);
 
+router.post('/createofflineuser',controller.createOfflineUser);
+router.get('/viewofflineuser', controller.viewOfflineuser);
+
+router.get('/viewsingleofflineuser/:id', controller.viewsingleofflineuser);
+router.post('/createofflineproject', controller.createOfflineProject);
+router.get('/viewproject/:id',controller.viewProject)
+
 
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {

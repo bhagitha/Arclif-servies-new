@@ -1,0 +1,40 @@
+.header {
+    height: 90px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50px;
+    /* position: fixed; */
+    top: 0;
+    left: 0;
+    right: 0%;
+  }
+  
+  .header__left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .header__logo_one {
+    margin-left: 10px;
+  }
+  
+  .header__logo_one > img {
+    height: 30px;
+    width: 2px;
+  }
+  
+  .loginButton__header {
+    height: 35px;
+    width: 100px;
+    background-color: black;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    font-size: 15px;
+  }
+  

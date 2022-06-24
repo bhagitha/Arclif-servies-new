@@ -62,7 +62,7 @@ function PhoneInput(props) {
 							// 	handleCodeChange(`+${e}`)}}
 							/>
 						</div>
-						<div style={{ width: "100%" }}>
+						<div style={{ width: "100%" ,paddingLeft: "3px",paddingRight:"5px",zIndex:'100'}}>
 							<input
 								type="tel"
 								value={value.phone}

@@ -13,6 +13,7 @@ import App from '../../App';
 
 import DataTable from './DataTable'
 import useTable from '../useTable'
+import Header from '../header';
 
 const cookies = new Cookies();
 
@@ -39,11 +40,8 @@ function UserslistView() {
 			<>
 
 				<div className={styles}>
-					<div className={styles.top}>
-						<p >AGRIHA</p>
-						{/* <button onClick={logout} className={styles.logout}> */}
-						{/* Log out
-				</button> */}
+					<div style={{marginBottom:'1rem'}}>
+					<Header/>
 					</div>
 
 					<div className={styles.bottom}>
@@ -53,7 +51,7 @@ function UserslistView() {
 
 						</div>
 
-						<div>
+						<div style={{marginTop:'1rem'}}>
 
 							<Link to="/registereduser"><button
 								className={styles.addbutton}>
@@ -66,7 +64,6 @@ function UserslistView() {
 
 
 							<Userview />
-{/* <DataTable/> */}
 
 						</div>
 

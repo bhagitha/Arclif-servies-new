@@ -8,6 +8,7 @@ import {
 import UserDashboard from './UserDashboard';
 import { useHistory } from 'react-router-dom';
 import '../styles/pagination.css'
+import Pagination from '../add/Pagination'
 
 axios.defaults.withCredentials = true;
 
@@ -15,6 +16,8 @@ function Userview() {
 
   const history = useHistory();
   const [userlist, setUserlist] = useState({ users: [] });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(10);
 
   const getUserdata = () => {
 
@@ -36,6 +39,14 @@ function Userview() {
     getUserdata();
   })
 
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = userlist.users.slice(indexOfFirstPost, indexOfLastPost);
+  console.log("currentPosts : ", currentPosts)
+
+  const Paginate = (pageNumber) => {
+    setCurrentPage(pageNumber)
+  }
 
   const deleteUser = (loginid, userid) => {
     axios.delete(`/api/deleteuser`, {
@@ -54,6 +65,7 @@ function Userview() {
   return (
     <>
       <div className="ml-5">
+
         <table id="dtBasicExample" className="table table-hover table-striped table-bordered bg-white">
           <thead className={styles.tableview}>
 
@@ -70,15 +82,15 @@ function Userview() {
 
           </thead>
           {
-            userlist.users.map((datas, i) => {
-              console.log("data :", datas)
-              const table=document.getElementById('dtBasicExample')
+            currentPosts.map((datas, i) => {
+              // console.log("data :", datas)
+              const table = document.getElementById('dtBasicExample')
 
               {
-                if (datas.userlogindetails.length != 0 ) {
+                // if (datas.userlogindetails.length != 0) {
                   return (
                     <tbody>
-                    
+
                       <tr >
                         <td style={{ color: '#04524b' }}><PersonPin /></td>
                         <td>{i + 1}</td>
@@ -95,27 +107,21 @@ function Userview() {
                           )
                         })}
                       </tr>
-                      
+
                     </tbody>
                   )
-                 }
-              }
+                }
+              // }
 
             })
           }
         </table>
 
         <div className="pagination">
-          <a href="#">&laquo;</a>
-          <a href="#">1</a>
-          <a href="#">2</a>
-          <a href="#">3</a>
-          <a href="#">4</a>
-          <a href="#">5</a>
-          <a href="#">6</a>
-          <a href="#">&raquo;</a>
-        </div>
+          <Pagination postsPerPage={postsPerPage} totalPosts={userlist.users.length}
+            Paginate={Paginate} />
 
+        </div>
       </div>
     </>
   )

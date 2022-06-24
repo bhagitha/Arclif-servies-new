@@ -23,6 +23,8 @@ import FileuploadComponent from './component/add/FileuploadComponent'
 import RegistereduserView from './component/view/RegistereduserView'
 import Adstages from './component/add/adstages';
 import Createuser from './component/view/user/ClientProfile';
+import Projectview from './component/add/Project/Projectview';
+import AddProject from './component/add/Project/AddProject';
 // import './styles.scss';
 
 ReactDOM.render(
@@ -60,14 +62,21 @@ ReactDOM.render(
           <FileuploadComponent />
         </Route>
         <Route exact path='/registereduser'>
-          <RegistereduserView/>
+          <RegistereduserView />
         </Route>
         <Route exact path='/stages/:id'>
-          <Adstages/>
+          <Adstages />
         </Route>
         <Route exact path='/createuser'>
-          <Createuser/>
+          <Createuser />
         </Route>
+        <Route exact path='/project'>
+          <Projectview />
+        </Route>
+        <Route exact path ='/createproject'>
+          <AddProject/>
+        </Route>
+
       </Switch>
     </BrowserRouter>
 

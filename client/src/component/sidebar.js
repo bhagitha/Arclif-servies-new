@@ -1,77 +1,81 @@
-import "./styles/sidebar.css";
-import React, { useState } from 'react';
-import {
-  RssFeed,
-  Chat,
-  PlayCircleFilledOutlined,
-  Group,
-  Bookmark,
-  HelpOutline,
-  WorkOutline,
-  Event,
-  School,
-} from "@material-ui/icons";
-import {Link} from 'react-router-dom'
+import "./styles/sidebarmain.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 
 
 export default function Sidebar() {
   return (
+
     <div className="sidebar">
-      <div className="sidebarWrapper">
-        <ul className="sidebarList">
-          <li className="sidebarListItem">
-            <RssFeed className="sidebarIcon" />
-            <span className="sidebarListItemText">Dashboard</span>
-          </li>
-          <hr></hr>
-          <li className="sidebarListItem">
-            <Group className="sidebarIcon" />
-           <Link to="/userlist" className="sidebarListItemText">
-              <span className="sidebarListItemText">Users list</span></Link>
-          </li>
-          <hr></hr>
-          <li className="sidebarListItem">
-            <PlayCircleFilledOutlined className="sidebarIcon" />
-            <Link to="/plans" className="sidebarListItemText" > 
-              <span className="sidebarListItemText">Plans</span></Link>
-          </li>
-          <hr></hr>
-          <li className="sidebarListItem">
-            <Chat className="sidebarIcon" />
-            <Link to="/adonservices" className="sidebarListItemText" > 
-            <span className="sidebarListItemText">Adon-Services</span></Link>
-          </li>
-          <hr></hr>
-          <li className="sidebarListItem">
-            <Bookmark className="sidebarIcon" />
-            <span className="sidebarListItemText">Employees</span>
-          </li><hr></hr>
-          <li className="sidebarListItem">
-            <HelpOutline className="sidebarIcon" />
-            <span className="sidebarListItemText">Questions</span>
-          </li>
-          <hr></hr>
-          <li className="sidebarListItem">
-            <WorkOutline className="sidebarIcon" />
-            <span className="sidebarListItemText">Jobs</span>
-          </li>
-          <hr></hr>
-          <li className="sidebarListItem">
-            <Event className="sidebarIcon" />
-            <span className="sidebarListItemText">Events</span>
-          </li>
-            <hr></hr>
-          <li className="sidebarListItem">
-            <School className="sidebarIcon" />
-            <span className="sidebarListItemText">Courses</span>
-          </li><hr></hr>
-        </ul>
-        <button className="sidebarButton" 
-        style={{color:'ButtonFace', background: '-webkit-linear-gradient(40deg,rgb(2, 126, 95),#04524b, #023c5e)'
-}}>Show More</button>
-      
-      
+      <div className="sidebarCard">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/747/747891.png"
+          alt=""
+        />
+        <Link to="/" className="sidebarListItemText"><p>DASHBOARD</p></Link>
+      </div>
+      <div className="sidebarCard">
+        <img
+          src="/assets/users.png"
+          alt=""
+        />
+        <Link to="/userlist" className="sidebarListItemText"> <p>USERS LIST</p></Link>
+      </div>
+      <div className="sidebarCard">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/2660/2660279.png"
+          alt=""
+        />
+        <Link to="/plans" className="sidebarListItemText" >  <p>PRICE PLANS</p></Link>
+      </div>
+      <div className="sidebarCard">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/7686/7686188.png"
+          alt=""
+        />
+        <Link to="/adonservices" className="sidebarListItemText" >
+          <p>ADDON SERVICES</p></Link>
+      </div>
+      <div className="sidebarCard">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/1388/1388855.png"
+          alt=""
+        />
+        <p>REFERRAL</p>
+      </div>
+      <div className="sidebarCard">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/1545/1545606.png"
+          alt=""
+        />
+        <p>QUESTIONS</p>
+      </div>
+      <div className="sidebarCard">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/5426/5426665.png"
+          alt=""
+        />
+        <Link to="/project" className="sidebarListItemText" >
+          <p>PROJECTS</p>
+        </Link>
+      </div>
+      <div className="sidebarCard">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/7609/7609433.png"
+          alt=""
+        />
+        <p>EVENTS</p>
+      </div>
+      <div className="sidebarCard">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/1001/1001296.png"
+          alt=""
+        />
+        <p>COURSES</p>
       </div>
     </div>
   );
-}
+};
+
+

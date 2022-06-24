@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom'
 import Userdashboard from './view/UserDashboard'
 import Cookies from 'universal-cookie';
 import App from '../App';
+import AdminDashboard from '../component/view/Admin/AdminDashboard'
+import Adminview from '../component/view/Admin/AdminView'
 
 const cookies = new Cookies();
 
@@ -53,26 +55,12 @@ function Home() {
 		};
 		return (
 			<div className={styles}>
-				<div className={styles.top}>
-					<p>ADMIN</p>
-					{/* <button onClick={logout} className={styles.logout}>
-					Log out
-				</button> */}
-				</div>
-				<div className={styles.bottom}>
-
-					<div style={{ width: '180px' }} >
-
-						<Sidebar></Sidebar>
-
+				
+					<div>
+					
+						<Adminview/>
 					</div>
-					{/* <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2 ">
-
-						<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-							className="img-fluid" alt="Sample image" />
-
-					</div> */}
-				</div>
+			
 
 			</div>
 		);

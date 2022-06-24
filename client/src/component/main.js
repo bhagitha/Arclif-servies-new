@@ -42,8 +42,8 @@ function main() {
 	};
 	return (
 		<div className={styles}>
-			<div className={styles.top}>
-				<p>AGRIHA</p>
+			<div>
+				<Header/>
 			</div>
 			<div className={styles.bottom}>
 				<button onClick={logout} className={styles.logout}>

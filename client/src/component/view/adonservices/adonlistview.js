@@ -11,6 +11,7 @@ import {
 } from "@material-ui/icons";
 
 import Cookies from 'universal-cookie';
+import Header from '../../header'
 
 const cookies = new Cookies();
 
@@ -36,8 +37,8 @@ function Adonlistview() {
 		return (
 			<>
 				<div className={styles}>
-					<div className={styles.top}>
-						<p >AGRIHA</p>
+					<div>
+						<Header/>
 					</div>
 					<div className={styles.bottom}>
 						<div style={{ width: '180px' }} >

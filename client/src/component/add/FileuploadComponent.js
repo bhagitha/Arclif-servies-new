@@ -7,6 +7,7 @@ import Sidebar from '../sidebar'
 import { useParams, useHistory, Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Header from '../header'
 
 import Cookies from 'universal-cookie';
 import App from '../../App';
@@ -208,12 +209,7 @@ function FileuploadComponent() {
         <div>
             <div className={styles}>
                 <div className={styles.top}>
-                    <p >AGRIHA</p>
-                    <h3 style={{ marginTop: '3rem', float: "left" }}>Services upload </h3>
-
-                    <button onClick={logout} className={styles.logout}>
-                        Log out
-                    </button>
+                  <Header/>
                 </div>
 
                 <div className={styles.bottom}>

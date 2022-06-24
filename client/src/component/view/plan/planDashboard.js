@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 
 import Cookies from 'universal-cookie';
 import App from '../../../App';
+import Header from '../../header'
 
 const cookies = new Cookies();
 axios.defaults.withCredentials = true;
@@ -105,14 +106,8 @@ function PlanDashboard() {
 
     return (
       <div className={styles}>
-        <div className={styles.top}>
-          <p >AGRIHA</p>
-
-          <h3 style={{ marginTop: '3rem', float: "left" }}>Plan </h3>
-
-          <button onClick={logout} className={styles.logout}>
-            Log out
-          </button>
+        <div>
+          <Header/>
 
         </div>
 

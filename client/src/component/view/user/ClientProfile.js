@@ -6,7 +6,8 @@ import Sidebar from '../../sidebar'
 
 import Cookies from 'universal-cookie';
 import App from '../../../App';
-import CreateClient from '../user/CreateClient'
+import CreateClient from '../user/CreateClient';
+import Header from  '../../header';
 
 
 const cookies = new Cookies();
@@ -34,11 +35,8 @@ function ClientProfile() {
             <>
 
                 <div className={styles}>
-                    <div className={styles.top}>
-                        <p >AGRIHA</p>
-                        {/* <button onClick={logout} className={styles.logout}> */}
-                        {/* Log out
-				</button> */}
+                    <div style={{marginBottom:'1rem'}}>
+                       <Header/>
                     </div>
                     <div className={styles.bottom}>
                         <div style={{ width: '180px' }} >

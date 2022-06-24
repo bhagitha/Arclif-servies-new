@@ -7,6 +7,7 @@ import Sidebar from '../sidebar'
 import { useParams, useHistory, Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Header from '../header';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -48,13 +49,8 @@ function AdStages() {
     return (
         <div>
             <div className={styles}>
-                <div className={styles.top}>
-                    <p >AGRIHA</p>
-                    <h3 style={{ marginTop: '3rem', float: "left" }}>Create stages </h3>
-
-                    <button className={styles.logout}>
-                        Log out
-                    </button>
+                <div>
+                   <Header/>
                 </div>
 
                 <div className={styles.bottom}>

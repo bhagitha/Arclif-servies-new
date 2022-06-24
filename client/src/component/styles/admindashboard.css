@@ -1,0 +1,111 @@
+.mainContainer {
+    padding-left: 30px;
+    padding-top: 30px;
+    margin-left: 5vw;
+    padding-bottom: 50px;
+  }
+  
+  .greetingContainer > h1 > span {
+    font-size: 20px;
+  }
+  
+  .cardContainer {
+    display: flex;
+    margin-top: 20px;
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    background-color: blueviolet;
+    height: 200px;
+    width: 150px;
+    border-radius: 5px;
+  }
+  
+  .users {
+    background-color: rgb(236, 215, 187);
+  }
+  
+  .payments {
+    background-color: rgb(237, 153, 235);
+  }
+  
+  .projects {
+    background-color: rgb(85, 210, 173);
+  }
+  
+  .card > img {
+    height: 60px;
+    width: 60px;
+    margin-bottom: 20px;
+  }
+  
+  .card > p {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+  
+  .addContainer {
+    margin-top: 20px;
+    width: 490px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .add {
+    width: 48%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #6c6c6c;
+    cursor: pointer;
+  }
+  
+  .add > p {
+    font-size: 15px;
+  }
+  
+  .add > img {
+    height: 15px;
+    margin-left: 10px;
+    width: 15px;
+  }
+  
+  .latestActivityContainer {
+    margin-top: 40px;
+  }
+  
+  .activityCardsContainer {
+    width: 450px;
+    margin-top: 20px;
+  }
+  
+  .activityCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    width: 100%;
+    background-color: #ddd6d6;
+    padding: 0px 20px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .activityCard > h5 {
+    color: #076f2b;
+  }
+  
+  .activityCard > p {
+    font-size: 13px;
+    font-weight: bold;
+  }
+  

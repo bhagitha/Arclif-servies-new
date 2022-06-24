@@ -1,117 +1,77 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import Header from "../../header";
+import "./AddClient.css";
+import axios from "axios";
 
-function CreateUser() {
+const CreateClient = () => {
+    const [location, setLocation] = useState("");
+
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState("");
+
+    const [customer_name, setCustomer_name] = useState("");
+    const [email, setEmail] = useState("");
+    const [business_name, setBusinessname] = useState('');
+    const [contact_person, setContactperson] = useState("");
+    const [contact_phone, setContactphone] = useState("")
+    const [officeaddress, setOfficeAddress] = useState("");
+    const [Reference, setReference] = useState("")
+
+    const storeLocation = () => {
+        setLocation(document.getElementById("location").value);
+    };
+
+    useEffect(() => {
+        async function getLocationDetails() {
+            const endpoint = `https://api.geoapify.com/v1/geocode/autocomplete?text=${location}%20&format=json&apiKey=41ff15ef6d914c4aa4d53d1c7c848744`;
+
+            await axios.get(endpoint).then((res) => {
+                const data = res.data;
+                console.log(data);
+                if (data.results) {
+                    setLatitude(data.results[0].lat);
+                    setLongitude(data.results[0].lon);
+                }
+            });
+        }
+
+        if (location.length > 2) {
+            getLocationDetails();
+        }
+
+    }, [location]);
+
     return (
-        <div>
-
-
-            <section className="p-5 ">
-                <div className="container h-100">
-                    <div className="row d-flex justify-content-center align-items-center h-100">
-                        <div className="col-lg-12 col-xl-11">
-                            <div className="card text-black" style={{ borderRadius: '25px' }}>
-                                <div className="card-body p-md-5">
-                                    <div className="row justify-content-center">
-                                        <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-
-                                            <p className=" h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Create Customer</p>
-
-                                            <form className="mx-1 mx-md-4">
-
-                                                <div className="d-flex flex-row align-items-center mb-4">
-                                                    <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                                                    <div className="form-outline flex-fill mb-0">
-                                                        <input type="text" id="form3Example1c" className="form-control" />
-                                                        <label className="form-label" for="form3Example1c">Your Name</label>
-                                                    </div>
-                                                </div>
-
-                                                <div className="d-flex flex-row align-items-center mb-4">
-                                                    <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                                                    <div className="form-outline flex-fill mb-0">
-                                                        <input type="email" id="form3Example3c" className="form-control" />
-                                                        <label className="form-label" for="form3Example3c">Your Email</label>
-                                                    </div>
-                                                </div>
-
-                                                <div className="d-flex flex-row align-items-center mb-4">
-                                                    <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
-                                                    <div className="form-outline flex-fill mb-0">
-                                                        <input type="tel" id="form3Example4c" className="form-control" />
-                                                        <label className="form-label" for="form3Example4c">Your Phone</label>
-                                                    </div>
-                                                </div>
-
-                                                <div className="d-flex flex-row align-items-center mb-4">
-                                                    <i className="fas fa-key fa-lg me-3 fa-fw"></i>
-                                                    <div className="form-outline flex-fill mb-0">
-                                                        <input type="text" id="form3Example4cd" className="form-control" />
-                                                        <label className="form-label" for="form3Example4cd"></label>
-                                                    </div>
-                                                </div>
-
-                                                {/* <div className="form-check d-flex justify-content-center mb-5">
-                                                    <input className="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                                                    <label className="form-check-label" for="form2Example3">
-                                                        I agree all statements in <a href="#!">Terms of service</a>
-                                                    </label>
-                                                </div> */}
-
-                                                <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                                    <button type="button" className="btn btn-primary btn-lg">Create customer</button>
-                                                </div>
-
-                                            </form>
-
-                                        </div>
-                                        <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-
-                                            {/* <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                                                className="img-fluid" alt="Sample image" /> */}
-
-                                            {/* <p className=" h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Create Customer</p> */}
-
-                                            <form className="mx-1 mx-md-4">
-                                                <div className="d-flex flex-row align-items-center mb-4">
-                                                    <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                                                    <div className="form-outline flex-fill mb-0">
-                                                        <input type="text" id="form3Example1c" className="form-control" />
-                                                        <label className="form-label" for="form3Example1c">Your Name</label>
-                                                    </div>
-                                                </div>
-                                                <div className="d-flex flex-row align-items-center mb-4">
-                                                    <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                                                    <div className="form-outline flex-fill mb-0">
-                                                        <input type="text" id="form3Example1c" className="form-control" />
-                                                        <label className="form-label" for="form3Example1c">Your Name</label>
-                                                    </div>
-                                                </div>
-                                                <div className="d-flex flex-row align-items-center mb-4">
-                                                    <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                                                    <div className="form-outline flex-fill mb-0">
-                                                        <input type="text" id="form3Example1c" className="form-control" />
-                                                        <label className="form-label" for="form3Example1c">Your Name</label>
-                                                    </div>
-                                                </div>
-                                                <div className="d-flex flex-row align-items-center mb-4">
-                                                    <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                                                    <div className="form-outline flex-fill mb-0">
-                                                        <input type="text" id="form3Example1c" className="form-control" />
-                                                        <label className="form-label" for="form3Example1c">Your Name</label>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <div className="addClient">
+            {/* <Header /> */}
+            <div className="add__client">
+                <h2>Add Client</h2>
+                <div className="inputFieldContainer__addClient">
+                    <div className="leftInputContainer">
+                        <h3>Customer Name</h3>
+                        <input type="text" onChange={(e)=>setCustomer_name(e.target.value)} />
+                        <h3>Business Name</h3>
+                        <input type="text"  onChange={(e)=>setBusinessname(e.target.value)} />
+                        <h3>Contact Person Name</h3>
+                        <input type="text" onChange={(e)=>setContactperson(e.target.value)} />
+                        <h3>Contact Number</h3>
+                        <input type="tel" onChange={(e)=>setContactphone(e.target.value)} />
+                        <h3>Email</h3>
+                        <input type="email" onChange={(e)=>setEmail(e.target.value)} />
+                    </div>
+                    <div className="rightInputContainer">
+                        <h3>Office Address</h3>
+                        <textarea rows="5" cols="50" onChange={(e)=>setOfficeAddress(e.target.value)} />
+                        <h3>Location</h3>
+                        <input onChange={storeLocation} id="location" type="text" />
+                        <h3>Reference</h3>
+                        <input type="text" onChange={(e)=>setReference(e.target.value)} />
+                        <div className="submitButton submitButton__addClient">SUBMIT</div>
                     </div>
                 </div>
-            </section>
-
+            </div>
         </div>
-    )
-}
+    );
+};
 
-export default CreateUser
+export default CreateClient;
