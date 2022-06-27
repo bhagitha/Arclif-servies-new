@@ -6,7 +6,7 @@ import Sidebar from '../../sidebar'
 
 import Cookies from 'universal-cookie';
 import App from '../../../App';
-import CreateClient from '../user/CreateClient';
+import CreateClient from './CreateClient';
 import Header from  '../../header';
 
 

@@ -22,7 +22,7 @@ import UploadFileComponent from './component/add/UploadFileComponent'
 import FileuploadComponent from './component/add/FileuploadComponent'
 import RegistereduserView from './component/view/RegistereduserView'
 import Adstages from './component/add/adstages';
-import Createuser from './component/view/user/ClientProfile';
+import Createuser from './component/add/user/ClientProfile';
 import Projectview from './component/add/Project/Projectview';
 import AddProject from './component/add/Project/AddProject';
 // import './styles.scss';

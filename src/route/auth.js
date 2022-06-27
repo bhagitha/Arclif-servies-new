@@ -54,6 +54,7 @@ router.post('/addbuildingdetails', controller.addBuildingDetails)
 router.post('/getbuildingdetails', controller.getBuildingDetails)
 router.get('/getrate', controller.getRate);
 
+
 router.post('/addstage', controller.adStage);
 
 router.post('/createofflineuser',controller.createOfflineUser);

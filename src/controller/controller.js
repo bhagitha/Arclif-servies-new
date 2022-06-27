@@ -601,18 +601,19 @@ const createOfflineUser = (req, res) => {
         OfflineusersData.findOne({ contact_phone: contact_phone })
             .then((response) => {
                 console.log(response)
-                if (!response) {
+                res.status(200).json({ msg: "success", details: response })
+                // if (!response) {
 
-                    const offlineuserdata = OfflineusersData(req.body)
-                    offlineuserdata.save().then((response) => {
-                        res.status(200).json({ msg: "user added !!", details: response })
-                    }).catch((err) => {
-                        console.error(err);
-                        res.json({ msg: `error : user not added !! ${err}`, })
-                    })
-                } else {
-                    res.json({ msg: `error : user already added !!`, data: response })
-                }
+                //     const offlineuserdata = OfflineusersData(req.body)
+                //     offlineuserdata.save().then((response) => {
+                //         res.status(200).json({ msg: "user added !!", details: response })
+                //     }).catch((err) => {
+                //         console.error(err);
+                //         res.json({ msg: `error : user not added !! ${err}`, })
+                //     })
+                // } else {
+                //     res.json({ msg: `error : user already added !!`, data: response })
+                // }
             }).catch((err) => {
                 console.error(err);
                 res.json({ msg: `error : !! ${err}`, })
