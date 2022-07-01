@@ -202,7 +202,19 @@ function FileuploadComponent() {
 
     const downloadfile=(filename)=>{
 
-        alert(filename)
+        console.log("filename :",filename);
+        axios
+        .get(`/fileuploaded/${filename}`)
+        .then((res) => {
+
+            console.log(res);
+        })
+        .catch((err) => {
+            console.log(err.response);
+        });
+
+
+
     }
 
     return (
@@ -370,7 +382,12 @@ function FileuploadComponent() {
                                                         <td>{u.rate}</td>
                                                         <td>{u.stage_Description}</td>
                                                         <td>{u.file_name}</td>
-                                                        <td><button className='btn btn-primary' onClick={()=>{downloadfile(u.file_name)}} >Download</button></td>
+                                                        <td>
+                                                            <Link to="http//localhost:8888/fileuploaded/${filename}"><button className='btn btn-primary' 
+                                                        // onClick={()=>{downloadfile(u.file_name)}} 
+                                                        >Download</button></Link>
+                                                        
+                                                        </td>
                                                         <td>
 
                                                             <img src={`/assets/files/${u.filename}`} style={{ width: '150px', height: '150px' }} alt="no preview available " />

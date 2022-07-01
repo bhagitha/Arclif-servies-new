@@ -130,7 +130,7 @@ app.get('/fileuploaded/:filename', (req, res) => {
    
       const readStream = gridfsBucket.openDownloadStream(file._id);
       readStream.pipe(res);
-      
+ 
 
     } else {
       res.status(404).json({
