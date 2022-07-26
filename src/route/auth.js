@@ -62,7 +62,10 @@ router.get('/viewofflineuser', controller.viewOfflineuser);
 
 router.get('/viewsingleofflineuser/:id', controller.viewsingleofflineuser);
 router.post('/createofflineproject', controller.createOfflineProject);
-router.get('/viewproject/:id',controller.viewProject)
+router.get('/viewproject/:id',controller.viewProject);
+
+router.get('/getenquiry',controller.getEnquiry);
+router.get('/getpayment', controller.getPaymentDetails);
 
 
 const storage = multer.diskStorage({

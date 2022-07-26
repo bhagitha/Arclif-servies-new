@@ -23,8 +23,10 @@ let refreshTokens = [];
 
 const login = (req, res) => {
     try {
+       
 
         if (req.body.phonenumber) {
+            const ip=req.ip;
             const phone = req.body.phonenumber;
             const otp = Math.floor(100000 + Math.random() * 900000);
             const ttl = 2 * 60 * 1000; //2minutes
@@ -49,7 +51,7 @@ const login = (req, res) => {
                     fast2sms.sendMessage(options)
                         .then((messages) => {
                             console.log(messages)
-                            res.status(200).send({ phone: phone, hash: fullHash, msg: `OTP :${otp} send successfully`, status: "200", flag: `${msg}` });
+                            res.status(200).send({ phone: phone, hash: fullHash, msg: `OTP :${otp} send successfully`, status: "200", flag: `${msg}` ,ip:`${ip}`});
                         })
                         .catch((err) => {
                             console.error(err);

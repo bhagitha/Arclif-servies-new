@@ -9,7 +9,9 @@ const RequirementslistData = require('../model/requirementslist');
 const userAdonData = require('../model/useradonservices')
 const Stages = require('../model/stages');
 const OfflineusersData = require('../model/offlineusers');
-const ProjectData = require('../model/projects')
+const ProjectData = require('../model/projects');
+const EnquiryData=require('../model/enquiry')
+const PaymentData=require('../model/Payments')
 
 
 //create plan
@@ -596,28 +598,51 @@ const adStage = (req, res) => {
 const createOfflineUser = (req, res) => {
 
     try {
-        console.log(req.body)
+        console.log("req.body :: ",req.body)
+        const customer_name = req.body.customer_name;
+        const email = req.body.email;
+        const business_name = req.body.business_name;
+        const contact_person = req.body.contact_person;
         const contact_phone = req.body.contact_phone;
-        OfflineusersData.findOne({ contact_phone: contact_phone })
-            .then((response) => {
-                console.log(response)
-                res.status(200).json({ msg: "success", details: response })
-                // if (!response) {
+        const officeaddress = req.body.officeaddress;
+        const location = req.body.location;
+        // longitude: { type: String },
+        // latitude: { type: String },
+        const Reference = req.body.Reference;
 
-                //     const offlineuserdata = OfflineusersData(req.body)
-                //     offlineuserdata.save().then((response) => {
-                //         res.status(200).json({ msg: "user added !!", details: response })
-                //     }).catch((err) => {
-                //         console.error(err);
-                //         res.json({ msg: `error : user not added !! ${err}`, })
-                //     })
-                // } else {
-                //     res.json({ msg: `error : user already added !!`, data: response })
-                // }
-            }).catch((err) => {
-                console.error(err);
-                res.json({ msg: `error : !! ${err}`, })
-            })
+        // const contact_phone = req.body.contact_phone;
+        // OfflineusersData.findOne({ contact_phone: contact_phone })
+        //     .then((response) => {
+        //         console.log(response)
+        //         // res.status(200).json({ msg: "success", details: response })
+        //         if (!response) {
+
+        const data = {
+            customer_name: customer_name,
+            email: email,
+            business_name: business_name,
+            contact_person: contact_person,
+            contact_phone: contact_phone,
+            officeaddress: officeaddress,
+            location: location,
+            // longitude: { type: String },
+            // latitude: { type: String },
+            Reference: Reference
+        }
+        const offlineuserdata = OfflineusersData(req.body)
+        offlineuserdata.save().then((response) => {
+            res.status(200).json({ msg: "user added !!", details: response })
+        }).catch((err) => {
+            console.error(err);
+            res.json({ msg: `error : user not added !! ${err}`, })
+        })
+        // } else {
+        //     res.json({ msg: `error : user already added !!`, data: response })
+        // }
+        // }).catch((err) => {
+        //     console.error(err);
+        //     res.json({ msg: `error : !! ${err}`, })
+        // })
     } catch (err) {
         res.send(err)
     }
@@ -673,11 +698,48 @@ const createOfflineProject = (req, res) => {
 const viewProject = (req, res) => {
     try {
         const id = req.params.id;
-        ProjectData.findById({ login_id:id }).then((response) => {
+        ProjectData.findById({ login_id: id }).then((response) => {
             console.log(response);
             res.status(200).json({ msg: "success", details: response })
         }).catch((err) => {
             console.error(err);
+            res.json({ msg: `error : ${err}`, })
+        })
+    } catch (err) {
+        res.send(err)
+    }
+
+
+}
+
+//get enquiry
+
+const getEnquiry = (req, res) => {
+    try {
+    
+        EnquiryData.find().then((response) => {
+            // console.log(response);
+            res.status(200).json({ msg: "success", details: response })
+        }).catch((err) => {
+            // console.error(err);
+            res.json({ msg: `error : ${err}`, })
+        })
+    } catch (err) {
+        res.send(err)
+    }
+
+
+}
+
+//get payment details
+const getPaymentDetails = (req, res) => {
+    try {
+    
+        PaymentData.find().then((response) => {
+            // console.log(response);
+            res.status(200).json({ msg: "success", details: response })
+        }).catch((err) => {
+            // console.error(err);
             res.json({ msg: `error : ${err}`, })
         })
     } catch (err) {
@@ -729,4 +791,6 @@ module.exports = {
     getRate,
 
     adStage,
+    getEnquiry,
+    getPaymentDetails,
 }

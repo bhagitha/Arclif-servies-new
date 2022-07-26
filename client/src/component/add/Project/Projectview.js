@@ -48,7 +48,7 @@ function ProjectView() {
 
 						</div>
 
-						<div style={{marginTop:'1rem'}}>
+						<div style={{marginTop:'1rem',marginLeft:'1rem'}}>
 
 							
 							<Link to="/createproject">	<button

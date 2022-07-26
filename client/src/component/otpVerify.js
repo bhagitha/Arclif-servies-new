@@ -61,9 +61,9 @@ function OtpVerify(props) {
 					<div className={styles.heading}>Otp verify</div>
 					<div className={styles.error}>{error.error}</div>
 					<div className={styles.success}>{error.success}</div>
-					<div className={styles.input_text_otp}> </div>
+					{/* <div className={styles.input_text_otp}> </div> */}
 					<div className={styles.input_container}>
-						<PhoneIphone style={{ color: 'teal', marginTop: '0.5rem', width: "10%", fontSize: "32px", marginLeft: 10 }} />
+						<PhoneIphone style={{ color: 'eec71c', marginTop: '0.5rem', width: "10%", fontSize: "32px", marginLeft: 10 }} />
 
 						<input
 							type="tel"

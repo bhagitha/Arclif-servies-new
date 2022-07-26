@@ -60,7 +60,7 @@ function UserDashboard(props) {
 
       axios.post('/api/getuserplan', { login_id: id })
         .then((res) => {
-          console.log("res : ", res);
+          //console.log("res : ", res);
           if (res.data.details) {
             setUserplan({ userplan: res.data.details })
             setPlanservices(res.data.details.plan_services)
@@ -83,6 +83,7 @@ function UserDashboard(props) {
 
       axios.post('/api/getrequirementslist', { login_id: id })
         .then((response) => {
+          if(response.data.details){
           console.log("requirements list : ", response.data.details)
 
           if (response.data.details.requirements_list.length != 0) {
@@ -91,6 +92,9 @@ function UserDashboard(props) {
           } else {
             toast.error('no requirements details found !!')
           }
+        } else{
+          toast.error('no details found !!')
+        }
         })
 
     }
@@ -120,8 +124,8 @@ function UserDashboard(props) {
 
       <div className={styles}>
         <div>
-         
-<Header/>
+
+          <Header />
         </div>
 
         <div className={styles.bottom}>
@@ -132,7 +136,7 @@ function UserDashboard(props) {
           </div>
 
           <div style={{
-            marginLeft: "3rem", marginTop: '1rem',
+            marginLeft: "5rem", marginTop: '1rem',
             marginBottom: '2rem', width: '100%'
           }}>
 

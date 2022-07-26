@@ -1,5 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose')
+const enquiryData=require('./src/model/enquiry')
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');

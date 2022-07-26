@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema    //schema definition
 
 const OfflineProjectSchema = new Schema({
-    login_id: { type: Schema.Types.ObjectId, ref: "offlineuser_tb", required: true },
+    user_id: { type: Schema.Types.ObjectId, ref: "offlineuser_tb", required: true },
     project_id: { type: String, required: true },
     project_name: { type: String, required: true },
 

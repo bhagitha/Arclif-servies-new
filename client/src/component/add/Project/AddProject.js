@@ -23,6 +23,7 @@ const AddProject = () => {
     }
   };
 
+  
   return (
     <div className="addProject">
       <Header />
@@ -38,7 +39,7 @@ const AddProject = () => {
             <h1>Add Project</h1>
             <div className="projectidContainer">
               <h5>
-                Project ID : <span>ARC001</span>
+                Project ID : <span> </span>
               </h5>
             </div>
             <h2>Project Description</h2>
@@ -46,16 +47,12 @@ const AddProject = () => {
               <h5>Project Type  </h5>
               <div className="select__dropdowns">
                 <select id="selects" name="categories">
-                  <option value="product__category">
-                    Residential Architecture
-                  </option>
-                  <option value="product__category">Interior Design</option>
-                  <option value="product__category">Refurbishment</option>
-                  <option value="product__category">Cultural Architecture</option>
-                  <option value="product__category">Commercial & Ofiices</option>
-                  <option value="product__category">
-                    Hospitality Architecture
-                  </option>
+                  <option value="Residential Architecture">Residential Architecture</option>
+                  <option value="Interior Design">Interior Design</option>
+                  <option value="Refurbishment">Refurbishment</option>
+                  <option value="Cultural Architecture">Cultural Architecture</option>
+                  <option value="Commercial and offices">Commercial and offices</option>
+                  <option value="Hospitality Architecture">Hospitality Architecture</option>
                 </select>
               </div>
             </div>

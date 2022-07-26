@@ -163,6 +163,17 @@ function FileuploadComponent() {
                 }).catch((err) => {
                     console.log("error reposnse /upload : ", err)
                 })
+
+                axios.post(`/api/upload`, data)
+                .then((response) => {
+                    console.log(response)
+                    // fileid = response.data.file.filename
+                    // console.log(fileid)
+
+                }).catch((err) => {
+                    console.log("error reposnse /api/upload : ", err)
+                })
+
             setTimeout(() => {
                 const fileDatas = {
                     login_id: id,
@@ -178,7 +189,7 @@ function FileuploadComponent() {
                     .then((response) => {
                         console.log(response.data.data)
                         toast.success('file uploaded !!')
-                        // window.location.reload();
+                         window.location.reload();
                     })
             }, 2000)
         }
@@ -327,7 +338,7 @@ function FileuploadComponent() {
 
                                         </Form.Group>
                                         {/* <button onClick={get_amount} className="btn btn-info h-25"> amount </button> */}
-                                        <Button variant="outline-secondary mr-4">  Amount </Button>
+                                        <Button variant="outline-secondary mr-2"> Amount ₹-</Button>
                                         <Form.Group className="mb-3" >
 
                                             <Form.Control type="text" readOnly placeholder="total_amount"
@@ -336,7 +347,7 @@ function FileuploadComponent() {
                                         </Form.Group>
 
                                     </div>
-                                    <div className="form-group w-50 mt-2">
+                                    <div className="form-group w-500 mt-2">
 
                                         <input type="file" class="form-control" name="file" id="file"
                                             onChange={(e) => {
@@ -383,9 +394,9 @@ function FileuploadComponent() {
                                                         <td>{u.stage_Description}</td>
                                                         <td>{u.file_name}</td>
                                                         <td>
-                                                            <Link to="http//localhost:8888/fileuploaded/${filename}"><button className='btn btn-primary' 
+                                                            <a href={`http://localhost:8888/fileuploaded/${u.file_name}`}><button className='btn btn-primary' 
                                                         // onClick={()=>{downloadfile(u.file_name)}} 
-                                                        >Download</button></Link>
+                                                        >Download</button></a>
                                                         
                                                         </td>
                                                         <td>

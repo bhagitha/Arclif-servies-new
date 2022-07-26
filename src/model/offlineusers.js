@@ -7,11 +7,11 @@ const OfflineUserSchema = new Schema({
     email: { type: String},
     business_name: { type: String },
     contact_person: { type: String },
-    contact_phone: { type: Number },
+    contact_phone: { type: String },
     officeaddress: { type: String },
     location: { type:String},
-    longitude: { type: String },
-    latitude: { type: String },
+    // longitude: { type: String },
+    // latitude: { type: String },
     Reference: { type: String }
 }, {
     timestamps: true

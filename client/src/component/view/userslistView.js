@@ -51,7 +51,7 @@ function UserslistView() {
 
 						</div>
 
-						<div style={{marginTop:'1rem'}}>
+						<div style={{marginTop:'1rem',marginLeft:'1rem'}}>
 
 							<Link to="/registereduser"><button
 								className={styles.addbutton}>

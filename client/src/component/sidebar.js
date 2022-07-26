@@ -24,6 +24,14 @@ export default function Sidebar() {
       </div>
       <div className="sidebarCard">
         <img
+          src="https://cdn-icons-png.flaticon.com/512/7686/7686188.png"
+          alt=""
+        />
+        <Link to="/viewofflineuser" className="sidebarListItemText" >
+          <p>CLIENTS LIST </p></Link>
+      </div>
+      <div className="sidebarCard">
+        <img
           src="https://cdn-icons-png.flaticon.com/512/2660/2660279.png"
           alt=""
         />
@@ -42,14 +50,16 @@ export default function Sidebar() {
           src="https://cdn-icons-png.flaticon.com/512/1388/1388855.png"
           alt=""
         />
-        <p>REFERRAL</p>
+        <p>EMPLOYEES</p>
       </div>
       <div className="sidebarCard">
         <img
           src="https://cdn-icons-png.flaticon.com/512/1545/1545606.png"
           alt=""
         />
-        <p>QUESTIONS</p>
+        <Link to="/enquiry" className="sidebarListItemText" >
+          <p>ENQUIRY</p>
+        </Link>
       </div>
       <div className="sidebarCard">
         <img
@@ -65,14 +75,22 @@ export default function Sidebar() {
           src="https://cdn-icons-png.flaticon.com/512/7609/7609433.png"
           alt=""
         />
-        <p>EVENTS</p>
+        <Link to="/Admin" className="sidebarListItemText" ><p>ADMIN</p>
+        </Link> 
       </div>
       <div className="sidebarCard">
         <img
           src="https://cdn-icons-png.flaticon.com/512/1001/1001296.png"
           alt=""
         />
-        <p>COURSES</p>
+        <p>INTERNSHIP</p>
+      </div>
+      <div className="sidebarCard">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/1001/1001296.png"
+          alt=""
+        />
+        <p>JOB</p>
       </div>
     </div>
   );

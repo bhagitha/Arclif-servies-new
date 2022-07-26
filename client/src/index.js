@@ -22,9 +22,11 @@ import UploadFileComponent from './component/add/UploadFileComponent'
 import FileuploadComponent from './component/add/FileuploadComponent'
 import RegistereduserView from './component/view/RegistereduserView'
 import Adstages from './component/add/adstages';
-import Createuser from './component/add/user/ClientProfile';
+import Createuser from './component/add/Client/ClientProfile';
 import Projectview from './component/add/Project/Projectview';
 import AddProject from './component/add/Project/AddProject';
+import Clientview from './component/view/Client/ClientlistView';
+import Clientdashboard from './component/view/Client/ClientDashboard';
 // import './styles.scss';
 
 ReactDOM.render(
@@ -69,6 +71,12 @@ ReactDOM.render(
         </Route>
         <Route exact path='/createuser'>
           <Createuser />
+        </Route>
+        <Route exact path='/viewofflineuser'>
+          <Clientview />
+        </Route>
+        <Route exact path='/clientdashboard/:id'>
+          <Clientdashboard />
         </Route>
         <Route exact path='/project'>
           <Projectview />

@@ -7,7 +7,7 @@ import {
 } from "@material-ui/icons";
 import UserDashboard from './UserDashboard';
 import { useHistory } from 'react-router-dom';
-import '../styles/pagination.css'
+ import '../styles/pagination.css'
 import Pagination from '../add/Pagination'
 
 axios.defaults.withCredentials = true;
@@ -64,7 +64,7 @@ function Userview() {
 
   return (
     <>
-      <div className="ml-5">
+      <div className="ml-5" >
 
         <table id="dtBasicExample" className="table table-hover table-striped table-bordered bg-white">
           <thead className={styles.tableview}>

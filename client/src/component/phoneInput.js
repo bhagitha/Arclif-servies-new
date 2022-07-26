@@ -44,11 +44,11 @@ function PhoneInput(props) {
 				<div className={styles.container}>
 					<div className={styles.heading}>AGRIHA ADMIN</div>
 
-					<div className={styles.input_text}></div>
+					{/* <div className={styles.input_text}></div> */}
 					<div className={styles.input_container}>
 
 						<PhoneIphone style={{
-							color: 'teal', marginTop: '0.5rem', width: "10%", fontSize: "32px",
+							color: '#eec71c', marginTop: '0.5rem', width: "10%", fontSize: "32px",
 							marginLeft: 10
 						}} />
 

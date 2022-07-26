@@ -1,7 +1,65 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/admindashboard.css";
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import moment from 'moment';
+
 
 const AdminDashboard = () => {
+
+  const [userlist, setUserlist] = useState({ users: [] });
+  const [enquirylist, setEnquirylist] = useState({ enquiry: [] });
+
+  let count = 0;
+
+  const getUserdata = () => {
+
+    axios
+      .get('/api/viewuser', {
+        headers: {
+          'Content-Type': 'Application/json'
+        }
+      })
+      .then((res) => {
+        setUserlist({ users: res.data.details })
+
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }
+
+  const getEnquiry = () => {
+    axios
+      .get('/api/getenquiry', {
+        headers: {
+          'Content-Type': 'Application/json'
+        }
+      })
+      .then((res) => {
+        console.log("Enquiry details : ", res.data.details)
+        const dataRev=res.data.details.slice().sort().reverse();
+
+        console.log("data reverse: ",dataRev);
+
+        setEnquirylist({ enquiry: dataRev});
+
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }
+
+  useEffect(() => {
+    getEnquiry();
+    // getUserdata();
+
+
+  })
+  console.log("userlist :", userlist)
+  //  count=userlist.length;
+  //   console.log(count)
+
   return (
     <div className="mainContainer">
       <div className="greetingContainer">
@@ -37,47 +95,37 @@ const AdminDashboard = () => {
       </div>
       <div className="addContainer">
         <div className="add">
-          <p>Add Client</p>
+          <Link to="/createuser">	 <p>Add Client</p></Link>
           <img
             src="https://cdn-icons-png.flaticon.com/512/1237/1237946.png"
             alt=""
           />
         </div>
         <div className="add">
-          <p>Add Project</p>
+          <Link to="/createproject">	 <p>Add Project</p></Link>
           <img
             src="https://cdn-icons-png.flaticon.com/512/1237/1237946.png"
             alt=""
           />
         </div>
+        
       </div>
       <div className="latestActivityContainer">
-        <h2>Latest Activity</h2>
+        <h2>Latest Enquiry</h2>
         <div className="activityCardsContainer">
-          <div className="activityCard">
-            <h5>LOGIN</h5>
-            <p>UserName</p>
-            <p>9876543210</p>
-            <h6>07 Jun 2022</h6>
-          </div>
-          <div className="activityCard">
-            <h5>LOGIN</h5>
-            <p>UserName</p>
-            <p>9876543210</p>
-            <h6>07 Jun 2022</h6>
-          </div>
-          <div className="activityCard">
-            <h5>LOGIN</h5>
-            <p>UserName</p>
-            <p>9876543210</p>
-            <h6>07 Jun 2022</h6>
-          </div>
-          <div className="activityCard">
-            <h5>LOGIN</h5>
-            <p>UserName</p>
-            <p>9876543210</p>
-            <h6>07 Jun 2022</h6>
-          </div>
+          {enquirylist.enquiry.map((data, i) => {
+            console.log("data",data)
+            return (
+              <div className="activityCard">
+                <h5>{data.name}</h5>
+                <p>{data.contact}</p>
+                <p>{data.email}</p>
+                <h6>{moment(data.createdAt).format('DD-MM-YYYY')}</h6>
+              </div>
+            )
+          }
+          )}
+
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 .add__ProjectContainer {
-    margin: 0px 2vw;
+    margin: 12px 2vw;
+    margin-left:80px;
     margin-top: 20px;
     display: flex;
     width:1500px;
